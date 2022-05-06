@@ -8,6 +8,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "importSort": {
+    ".ts": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.2.0",
@@ -29,14 +35,23 @@
     "@angular-devkit/build-angular": "~12.2.6",
     "@angular/cli": "~12.2.6",
     "@angular/compiler-cli": "~12.2.0",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "4.15.1",
+    "@typescript-eslint/parser": "4.15.1",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "8.0.0",
+    "eslint-import-resolver-webpack": "0.13.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.3.1",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "prettier": "^2.6.2",
     "typescript": "~4.3.5"
   }
 }
