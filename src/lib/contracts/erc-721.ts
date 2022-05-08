@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
+export type TERC721 = new (web3: Web3, address: string) => ERC721;
+
 export interface IERC721 {
   name$(): Observable<string>;
   symbol$(): Observable<string>;

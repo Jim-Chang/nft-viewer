@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ERC721 } from 'Lib/contracts/erc-721';
-import { KongLongNFT } from 'Lib/contracts/kong-long-nft';
 import { TMetadata, TTokenInfo } from 'Lib/contracts/type-define';
+import { getContractClass } from 'Lib/contracts/utility';
 import { TokenURIService } from 'Lib/services/token-uri.service';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { httplizeIpfsUri } from 'Lib/utility';
@@ -30,8 +30,7 @@ export class NftEntryComponent {
     this.address = this.route.snapshot.paramMap.get('address')!;
     this.tokenId = parseInt(this.route.snapshot.paramMap.get('tokenId')!);
 
-    // this.contract = this.web3Service.getContract(ERC721, this.address) as ERC721;
-    this.contract = this.web3Service.getContract(KongLongNFT, this.address!) as ERC721;
+    this.contract = this.web3Service.getContract(getContractClass(), this.address) as ERC721;
 
     this.contract
       .getTokenInfo$(this.tokenId)
