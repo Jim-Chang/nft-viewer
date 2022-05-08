@@ -1,3 +1,5 @@
-export const environment = {
-  production: true
+import { TEnv } from './type';
+
+export const environment: TEnv = {
+  production: true,
 };

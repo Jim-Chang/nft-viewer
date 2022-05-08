@@ -68,6 +68,41 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "konglong-prod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.konglong.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "konglong-dev": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.konglong.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -81,6 +116,12 @@
             },
             "development": {
               "browserTarget": "nft-viewer:build:development"
+            },
+            "konglong-prod": {
+              "browserTarget": "nft-viewer:build:konglong-prod"
+            },
+            "konglong-dev": {
+              "browserTarget": "nft-viewer:build:konglong-dev"
             }
           },
           "defaultConfiguration": "development"
