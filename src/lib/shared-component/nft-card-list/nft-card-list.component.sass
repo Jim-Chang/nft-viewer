@@ -1,0 +1,35 @@
+@import "bootstrap.sass"
+
+.card
+  margin: 10px 15px
+  width: 100%
+
+  @include media-breakpoint-up(sm)
+    width: 400px
+
+  @include media-breakpoint-up(md)
+    width: 300px
+
+.card-list
+  display: flex
+  flex-wrap: wrap
+  align-content: center
+  justify-content: center
+  padding-top: 15px
+  margin: 0 auto
+
+  @include media-breakpoint-up(sm)
+    width: 100%
+
+  @include media-breakpoint-up(md)
+    width: 660px
+    justify-content: flex-start
+
+  @include media-breakpoint-up(lg)
+    width: 992px
+
+  @include media-breakpoint-up(xl)
+    width: 990px
+
+  @include media-breakpoint-up(xxl)
+    width: 1320px
