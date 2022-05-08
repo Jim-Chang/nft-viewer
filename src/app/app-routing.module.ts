@@ -1,7 +1,7 @@
 import { NftEntryComponent } from './nft-entry/nft-entry.component';
+import { NftSeriesComponent } from './nft-series/nft-series.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NftSeriesComponent } from 'Lib/shared-component/nft-series/nft-series.component';
 
 const routes: Routes = [
   { path: 'contract/:address', component: NftSeriesComponent },

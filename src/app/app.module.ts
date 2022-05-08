@@ -2,6 +2,7 @@ import { SharedComponentModule } from './../lib/shared-component/shared-componen
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NftEntryComponent } from './nft-entry/nft-entry.component';
+import { NftSeriesComponent } from './nft-series/nft-series.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -11,7 +12,7 @@ import { HttpInterceptorService } from 'Lib/services/http-intercept.service';
 import { MaterialModule } from 'Lib/ui/material.module';
 
 @NgModule({
-  declarations: [AppComponent, NftEntryComponent],
+  declarations: [AppComponent, NftSeriesComponent, NftEntryComponent],
   imports: [
     BrowserModule,
     CommonModule,

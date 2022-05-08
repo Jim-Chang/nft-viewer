@@ -1,10 +1,9 @@
-import { KongLongNFT } from './../../contracts/kong-long-nft';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ERC721 } from 'Lib/contracts/erc-721';
+import { KongLongNFT } from 'Lib/contracts/kong-long-nft';
 import { TTokenInfo } from 'Lib/contracts/type-define';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'nft-series',
