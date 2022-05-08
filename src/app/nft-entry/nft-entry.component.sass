@@ -1,0 +1,43 @@
+@import "bootstrap.sass"
+
+.container
+  display: flex
+  margin: 25px auto
+
+  @include media-breakpoint-up(sm)
+    width: 100%
+
+  @include media-breakpoint-up(md)
+    width: 660px
+    justify-content: flex-start
+
+  @include media-breakpoint-up(lg)
+    width: 992px
+
+  @include media-breakpoint-up(xl)
+    width: 990px
+
+  @include media-breakpoint-up(xxl)
+    width: 1320px
+
+.card-wrapper
+  width: 50%
+
+.content-wrapper
+  width: 50%
+  padding: 20px
+
+.token-name
+  font-size: 50px
+  margin-bottom: 35px
+
+.contract-name
+  display: block
+  font-size: 20px
+  margin-bottom: 7px
+
+.token-owner
+  font-size: 15px
+
+table
+  width: 100%

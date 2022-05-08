@@ -10,6 +10,7 @@ import Web3 from 'web3';
 export class Web3ProviderService {
   private LOCAL_PROVIDER = 'http://localhost:8545';
   private web3: Web3;
+  private contractMap: { [address: string]: BaseContract } = {};
 
   constructor() {
     this.web3 = new Web3(Web3.givenProvider || this.LOCAL_PROVIDER);
@@ -29,6 +30,9 @@ export class Web3ProviderService {
   }
 
   getContract(contractCls: TBaseContract, address: string): BaseContract {
-    return new contractCls(this.web3, address);
+    if (!this.contractMap[address]) {
+      this.contractMap[address] = new contractCls(this.web3, address);
+    }
+    return this.contractMap[address];
   }
 }

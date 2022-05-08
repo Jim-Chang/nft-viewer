@@ -105,6 +105,10 @@ export class ERC721 extends BaseContract implements IERC721 {
     );
   }
 
+  getTokenInfo$(tokenId: number): Observable<TTokenInfo> {
+    return this.getTokenInfoMap$().pipe(map((tokenInfoMap) => tokenInfoMap[tokenId]));
+  }
+
   getTokenInfos$(): Observable<TTokenInfo[]> {
     return this.getTokenInfoMap$().pipe(map((tokenInfoMap) => Object.values(tokenInfoMap)));
   }
