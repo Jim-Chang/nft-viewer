@@ -6,7 +6,8 @@ import { getContractClass } from 'Lib/contracts/utility';
 import { TokenURIService } from 'Lib/services/token-uri.service';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { httplizeIpfsUri } from 'Lib/utility';
-import { switchMap } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nft-entry',
@@ -19,8 +20,7 @@ export class NftEntryComponent {
   private contract: ERC721;
   tokenInfo: TTokenInfo;
   metaData: TMetadata;
-
-  displayedColumns: string[] = ['trait_type', 'value'];
+  basicInfos: { key: string; value: string | number }[];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,8 +39,21 @@ export class NftEntryComponent {
           this.tokenInfo = tokenInfo;
           return this.tokenURIService.getMetaData$(this.tokenInfo.tokenURI);
         }),
+        switchMap((metaData) => {
+          this.metaData = metaData;
+          return forkJoin([this.contract.name$(), this.contract.symbol$(), this.contract.totalSupply$()]);
+        }),
       )
-      .subscribe((metaData) => (this.metaData = metaData));
+      .subscribe(([name, symbol, totalSupply]) => {
+        this.basicInfos = [
+          { key: 'Name', value: name },
+          { key: 'Symbol', value: symbol },
+          { key: 'Contract Address', value: this.tokenInfo.contractAddress },
+          { key: 'Total Supply', value: totalSupply },
+          { key: 'Owner By', value: this.tokenInfo.owner },
+          { key: 'URI', value: this.tokenInfo.tokenURI },
+        ];
+      });
   }
 
   get imageURL(): string {
