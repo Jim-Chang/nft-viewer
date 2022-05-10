@@ -78,41 +78,43 @@ export class ERC721 extends BaseContract implements IERC721 {
     return this._totalSupply$;
   }
 
-  getTokenInfoMap$(): Observable<{ [tokenId: number]: TTokenInfo }> {
-    if (Object.keys(this.tokenInfoMap).length !== 0) {
-      return of(this.tokenInfoMap);
+  getTokenInfo$(tokenId: number): Observable<TTokenInfo> {
+    if (tokenId in this.tokenInfoMap) {
+      return of(this.tokenInfoMap[tokenId]);
+    }
+    return forkJoin([this.name$(), this.ownerOf$(tokenId), this.tokenURI$(tokenId)]).pipe(
+      map(([contractName, owner, tokenURI]) => {
+        this.tokenInfoMap[tokenId] = { id: tokenId, owner, tokenURI, contractName, contractAddress: this.address };
+        return this.tokenInfoMap[tokenId];
+      }),
+    );
+  }
+
+  getTokenInfos$(tokenIdList: number[]): Observable<TTokenInfo[]> {
+    const mapKeySet = new Set(Object.keys(this.tokenInfoMap));
+    const needGetIds = tokenIdList.filter((tid) => !mapKeySet.has(tid.toString()));
+
+    if (needGetIds.length === 0) {
+      return of(tokenIdList.map((tid) => this.tokenInfoMap[tid]));
     }
 
-    let tokenIds: number[];
     let contractName: string;
 
     return this.name$().pipe(
       switchMap((name) => {
         contractName = name;
-        return this.totalSupply$();
-      }),
-      switchMap((totalSupply) => {
-        tokenIds = Array.from({ length: totalSupply }, (_, i) => i + 1);
         return zip(
-          forkJoin(tokenIds.map((tokenId) => this.ownerOf$(tokenId))),
-          forkJoin(tokenIds.map((tokenId) => this.tokenURI$(tokenId))),
+          forkJoin(needGetIds.map((tokenId) => this.ownerOf$(tokenId))),
+          forkJoin(needGetIds.map((tokenId) => this.tokenURI$(tokenId))),
         );
       }),
       map(([owners, tokenURIs]) => {
-        zipArray([tokenIds, owners, tokenURIs]).forEach(([tokenId, owner, tokenURI]: [number, string, string]) => {
+        zipArray([needGetIds, owners, tokenURIs]).forEach(([tokenId, owner, tokenURI]: [number, string, string]) => {
           this.tokenInfoMap[tokenId] = { id: tokenId, owner, tokenURI, contractName, contractAddress: this.address };
         });
-        return this.tokenInfoMap;
+        return tokenIdList.map((tid) => this.tokenInfoMap[tid]);
       }),
     );
-  }
-
-  getTokenInfo$(tokenId: number): Observable<TTokenInfo> {
-    return this.getTokenInfoMap$().pipe(map((tokenInfoMap) => tokenInfoMap[tokenId]));
-  }
-
-  getTokenInfos$(): Observable<TTokenInfo[]> {
-    return this.getTokenInfoMap$().pipe(map((tokenInfoMap) => Object.values(tokenInfoMap)));
   }
 
   protected get abi(): AbiItem | AbiItem[] {
