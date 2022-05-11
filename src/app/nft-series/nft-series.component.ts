@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RouterService } from 'App/services/router.service';
 import { ERC721 } from 'Lib/contracts/erc-721';
 import { TTokenInfo } from 'Lib/contracts/type-define';
 import { getContractClass } from 'Lib/contracts/utility';
@@ -40,7 +41,11 @@ export class NftSeriesComponent implements OnInit {
     return range(this.pageStartTokenId, this.pageEndTokenId);
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private web3Service: Web3ProviderService) {}
+  constructor(
+    private routerService: RouterService,
+    private route: ActivatedRoute,
+    private web3Service: Web3ProviderService,
+  ) {}
 
   ngOnInit(): void {
     this.pageChange$$
@@ -49,7 +54,7 @@ export class NftSeriesComponent implements OnInit {
         switchMap((pageEvent) => {
           this.pageIndex = pageEvent.pageIndex;
           this.pageSize = pageEvent.pageSize;
-          this.router.navigate(['/', 'contract', this.address, 'page', this.pageIndex + 1]);
+          this.routerService.navToNftSeriesWithPageNum(this.address!, this.pageIndex + 1);
           return this.getTokenInfos$();
         }),
       )

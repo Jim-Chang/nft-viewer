@@ -1,3 +1,4 @@
+import { RouterService } from './../services/router.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ERC721 } from 'Lib/contracts/erc-721';
@@ -23,6 +24,7 @@ export class NftEntryComponent {
   basicInfos: { key: string; value: string | number }[];
 
   constructor(
+    private routerService: RouterService,
     private route: ActivatedRoute,
     private web3Service: Web3ProviderService,
     private tokenURIService: TokenURIService,
@@ -60,7 +62,7 @@ export class NftEntryComponent {
     return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
   }
 
-  get contractURL(): string {
-    return `/contract/${this.address}`;
+  onClickBackButton(): void {
+    this.routerService.navBackToNftSeries(this.address);
   }
 }

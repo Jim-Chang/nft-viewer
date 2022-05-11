@@ -28,7 +28,8 @@
       "https": ["./node_modules/https-browserify"],
       "os": ["./node_modules/os-browserify"],
       "Lib/*": ["src/lib/*"],
-      "ABI/*": ["src/abi/*"]
+      "ABI/*": ["src/abi/*"],
+      "App/*": ["src/app/*"],
     },
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
