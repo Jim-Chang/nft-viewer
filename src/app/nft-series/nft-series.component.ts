@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ERC721 } from 'Lib/contracts/erc-721';
 import { TTokenInfo } from 'Lib/contracts/type-define';
 import { getContractClass } from 'Lib/contracts/utility';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { range } from 'Lib/utility';
 import { Observable, Subject } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'nft-series',
@@ -24,7 +24,8 @@ export class NftSeriesComponent implements OnInit {
   pageSizeOptions = [12, 24, 36];
 
   private address: string | null;
-  private pageChange$$ = new Subject<void>();
+  private pageChange$$ = new Subject<PageEvent>();
+  private DEFAULT_PAGE = 1;
 
   get pageStartTokenId(): number {
     return 1 + this.pageIndex * this.pageSize;
@@ -39,10 +40,24 @@ export class NftSeriesComponent implements OnInit {
     return range(this.pageStartTokenId, this.pageEndTokenId);
   }
 
-  constructor(private route: ActivatedRoute, private web3Service: Web3ProviderService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private web3Service: Web3ProviderService) {}
 
   ngOnInit(): void {
-    this.address = this.route.snapshot.paramMap.get('address');
+    this.pageChange$$
+      .pipe(
+        debounceTime(200),
+        switchMap((pageEvent) => {
+          this.pageIndex = pageEvent.pageIndex;
+          this.pageSize = pageEvent.pageSize;
+          this.router.navigate(['/', 'contract', this.address, 'page', this.pageIndex + 1]);
+          return this.getTokenInfos$();
+        }),
+      )
+      .subscribe();
+  }
+
+  ngAfterContentInit(): void {
+    this.initParamFromRoute();
 
     if (!this.contract && !this.address) {
       throw 'Please provide contract or address for NFT series component';
@@ -54,31 +69,25 @@ export class NftSeriesComponent implements OnInit {
     this.contract
       .totalSupply$()
       .pipe(
-        map((totalSupply) => {
+        switchMap((totalSupply) => {
           this.totalSupply = totalSupply;
-          this.pageChange$$.next();
+          return this.getTokenInfos$();
         }),
       )
       .subscribe();
-
-    this.pageChange$$
-      .pipe(
-        switchMap(() => {
-          return this.contract.getTokenInfos$(this.pageRangeTokenIds);
-        }),
-      )
-      .subscribe((tokenInfos) => {
-        this.tokenInfos = tokenInfos;
-      });
   }
 
   onChangePage(pageEvent: PageEvent): void {
-    this.pageIndex = pageEvent.pageIndex;
-    this.pageSize = pageEvent.pageSize;
-    this.pageChange$$.next();
+    this.pageChange$$.next(pageEvent);
   }
 
-  private getTokenInfos$(tokenIdList: number[]): Observable<void> {
+  private initParamFromRoute(): void {
+    const paramMap = this.route.snapshot.paramMap;
+    this.address = paramMap.get('address');
+    this.pageIndex = parseInt(paramMap.get('page') ?? this.DEFAULT_PAGE.toString()) - 1;
+  }
+
+  private getTokenInfos$(): Observable<void> {
     return this.contract.getTokenInfos$(this.pageRangeTokenIds).pipe(
       map((tokenInfos) => {
         this.tokenInfos = tokenInfos;

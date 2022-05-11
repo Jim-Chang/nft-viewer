@@ -10,12 +10,14 @@ if (environment.isKongLongNFT) {
   routes = [
     { path: '', redirectTo: `contract/${environment.kongLongNFTAddress}`, pathMatch: 'full' },
     { path: 'contract/:address', component: NftSeriesComponent },
-    { path: 'contract/:address/:tokenId', component: NftEntryComponent },
+    { path: 'contract/:address/page/:page', component: NftSeriesComponent },
+    { path: 'contract/:address/token/:tokenId', component: NftEntryComponent },
   ];
 } else {
   routes = [
     { path: 'contract/:address', component: NftSeriesComponent },
-    { path: 'contract/:address/:tokenId', component: NftEntryComponent },
+    { path: 'contract/:address/page/:page', component: NftSeriesComponent },
+    { path: 'contract/:address/token/:tokenId', component: NftEntryComponent },
   ];
 }
 

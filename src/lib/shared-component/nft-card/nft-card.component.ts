@@ -32,6 +32,6 @@ export class NftCardComponent {
     if (this.disableClick) {
       return;
     }
-    this.router.navigate(['/', 'contract', this.tokenInfo.contractAddress, this.tokenInfo.id]);
+    this.router.navigate(['/', 'contract', this.tokenInfo.contractAddress, 'token', this.tokenInfo.id]);
   }
 }

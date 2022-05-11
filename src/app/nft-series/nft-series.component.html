@@ -12,6 +12,7 @@
 
   <mat-paginator
     [length]="totalSupply"
+    [pageIndex]="pageIndex"
     [pageSize]="pageSize"
     [pageSizeOptions]="pageSizeOptions"
     (page)="onChangePage($event)"
