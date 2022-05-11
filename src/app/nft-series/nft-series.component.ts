@@ -8,7 +8,7 @@ import { getContractClass } from 'Lib/contracts/utility';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { range } from 'Lib/utility';
 import { Observable, Subject } from 'rxjs';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'nft-series',
@@ -26,6 +26,7 @@ export class NftSeriesComponent implements OnInit {
 
   private address: string | null;
   private pageChange$$ = new Subject<PageEvent>();
+  private destroy$$ = new Subject<void>();
   private DEFAULT_PAGE = 1;
 
   get pageStartTokenId(): number {
@@ -50,6 +51,7 @@ export class NftSeriesComponent implements OnInit {
   ngOnInit(): void {
     this.pageChange$$
       .pipe(
+        takeUntil(this.destroy$$),
         debounceTime(200),
         switchMap((pageEvent) => {
           this.pageIndex = pageEvent.pageIndex;
@@ -80,6 +82,10 @@ export class NftSeriesComponent implements OnInit {
         }),
       )
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
   }
 
   onChangePage(pageEvent: PageEvent): void {

@@ -23,12 +23,18 @@ export class NftEntryComponent {
   metaData: TMetadata;
   basicInfos: { key: string; value: string | number }[];
 
+  get imageURL(): string {
+    return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
+  }
+
   constructor(
     private routerService: RouterService,
     private route: ActivatedRoute,
     private web3Service: Web3ProviderService,
     private tokenURIService: TokenURIService,
-  ) {
+  ) {}
+
+  ngAfterContentInit(): void {
     this.address = this.route.snapshot.paramMap.get('address')!;
     this.tokenId = parseInt(this.route.snapshot.paramMap.get('tokenId')!);
 
@@ -56,10 +62,6 @@ export class NftEntryComponent {
           { key: 'URI', value: this.tokenInfo.tokenURI },
         ];
       });
-  }
-
-  get imageURL(): string {
-    return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
   }
 
   onClickBackButton(): void {
