@@ -12,9 +12,10 @@ import { Observable } from 'rxjs';
 })
 export class NftCardComponent {
   @Input() tokenInfo: TTokenInfo;
-  @Input() hideText = false;
   @Input() disableClick = false;
+  @Input() isPlaceholder = false;
   metaData: TMetadata;
+  isImageLoaded = false;
 
   constructor(private router: Router, private tokenURIService: TokenURIService) {}
 
@@ -24,6 +25,7 @@ export class NftCardComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.tokenInfo && this.tokenInfo) {
+      this.isImageLoaded = false;
       this.tokenURIService.getMetaData$(this.tokenInfo.tokenURI).subscribe((metaData) => (this.metaData = metaData));
     }
   }
@@ -33,5 +35,9 @@ export class NftCardComponent {
       return;
     }
     this.router.navigate(['/', 'contract', this.tokenInfo.contractAddress, 'token', this.tokenInfo.id]);
+  }
+
+  onImageLoaded(): void {
+    this.isImageLoaded = true;
   }
 }

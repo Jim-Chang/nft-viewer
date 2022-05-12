@@ -8,6 +8,12 @@ import { TTokenInfo } from 'Lib/contracts/type-define';
 })
 export class NftCardListComponent implements OnInit {
   @Input() tokenInfos: TTokenInfo[];
+  @Input() isShowPlaceholder = false;
+  @Input() placeholderCount = 1;
+
+  get placeholders(): number[] {
+    return Array(this.placeholderCount).fill(1);
+  }
 
   constructor() {}
 

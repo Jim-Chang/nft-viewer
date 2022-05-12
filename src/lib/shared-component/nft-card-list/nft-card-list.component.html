@@ -1,6 +1,16 @@
 <div class="card-list">
-  <nft-card *ngFor="let tokenInfo of tokenInfos"
-    class="card"
-    [tokenInfo]="tokenInfo"
-  ></nft-card>
+  <ng-container *ngIf="!isShowPlaceholder; else placeholder">
+    <nft-card *ngFor="let tokenInfo of tokenInfos"
+      class="card"
+      [tokenInfo]="tokenInfo"
+      [isPlaceholder]="false"
+    ></nft-card>
+  </ng-container>
 </div>
+
+<ng-template #placeholder>
+  <nft-card *ngFor="let _ of placeholders"
+      class="card"
+      [isPlaceholder]="true"
+    ></nft-card>
+</ng-template>

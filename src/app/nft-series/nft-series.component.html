@@ -8,6 +8,8 @@
 <div class="content">
   <nft-card-list
     [tokenInfos]="tokenInfos"
+    [placeholderCount]="pageSize"
+    [isShowPlaceholder]="isLoadingTokenInfos"
   ></nft-card-list>
 
   <mat-paginator

@@ -23,6 +23,8 @@ export class NftEntryComponent {
   metaData: TMetadata;
   basicInfos: { key: string; value: string | number }[];
 
+  isLoadingMetaData = false;
+
   get imageURL(): string {
     return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
   }
@@ -40,6 +42,7 @@ export class NftEntryComponent {
 
     this.contract = this.web3Service.getContract(getContractClass(), this.address) as ERC721;
 
+    this.isLoadingMetaData = true;
     this.contract
       .getTokenInfo$(this.tokenId)
       .pipe(
@@ -49,6 +52,7 @@ export class NftEntryComponent {
         }),
         switchMap((metaData) => {
           this.metaData = metaData;
+          this.isLoadingMetaData = false;
           return forkJoin([this.contract.name$(), this.contract.symbol$(), this.contract.totalSupply$()]);
         }),
       )

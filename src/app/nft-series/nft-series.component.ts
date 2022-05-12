@@ -24,6 +24,8 @@ export class NftSeriesComponent implements OnInit {
   pageSize = 12;
   pageSizeOptions = [12, 24, 36];
 
+  isLoadingTokenInfos = false;
+
   private address: string | null;
   private pageChange$$ = new Subject<PageEvent>();
   private destroy$$ = new Subject<void>();
@@ -99,9 +101,11 @@ export class NftSeriesComponent implements OnInit {
   }
 
   private getTokenInfos$(): Observable<void> {
+    this.isLoadingTokenInfos = true;
     return this.contract.getTokenInfos$(this.pageRangeTokenIds).pipe(
       map((tokenInfos) => {
         this.tokenInfos = tokenInfos;
+        this.isLoadingTokenInfos = false;
       }),
     );
   }
