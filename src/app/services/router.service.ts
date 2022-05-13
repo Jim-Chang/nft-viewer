@@ -27,7 +27,7 @@ export class RouterService {
     this.router.navigate(['/', 'contract', contractAddress, 'page', page]);
   }
 
-  navBackToNftSeries(contractAddress: string): void {
+  navToNftSeries(contractAddress: string): void {
     if (this.previousUrl) {
       // /contract/0x0000...
       const regex = /^\/contract\/([A-Za-z0-9]+)$/;

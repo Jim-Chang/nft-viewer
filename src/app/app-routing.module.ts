@@ -1,4 +1,5 @@
 import { NftEntryComponent } from './nft-entry/nft-entry.component';
+import { NftSearchComponent } from './nft-search/nft-search.component';
 import { NftSeriesComponent } from './nft-series/nft-series.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,13 +9,15 @@ let routes: Routes;
 
 if (environment.isKongLongNFT) {
   routes = [
-    { path: '', redirectTo: `contract/${environment.kongLongNFTAddress}`, pathMatch: 'full' },
+    // { path: '', redirectTo: `contract/${environment.kongLongNFTAddress}`, pathMatch: 'full' },
+    { path: '', component: NftSearchComponent },
     { path: 'contract/:address', component: NftSeriesComponent },
     { path: 'contract/:address/page/:page', component: NftSeriesComponent },
     { path: 'contract/:address/token/:tokenId', component: NftEntryComponent },
   ];
 } else {
   routes = [
+    { path: '', component: NftSearchComponent },
     { path: 'contract/:address', component: NftSeriesComponent },
     { path: 'contract/:address/page/:page', component: NftSeriesComponent },
     { path: 'contract/:address/token/:tokenId', component: NftEntryComponent },

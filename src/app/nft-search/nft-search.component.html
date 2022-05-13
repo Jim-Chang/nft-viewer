@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="wrap">
+    <form class="form">
+      <mat-form-field class="address-input" appearance="fill">
+        <mat-label>Contract Address</mat-label>
+        <input matInput [(ngModel)]="contractAddress" name="contractAddress" placeholder="Ex. 0x8001ed4ea0F7866ba4585706726aaec0159bd50b">
+      </mat-form-field>
+      <button mat-raised-button class="view-btn" color="primary" [disabled]="!contractAddress" (click)="onClickViewBtn()">View</button>
+    </form>
+    <mat-error *ngIf="isShowError">
+      Not valid address or not contract address.
+    </mat-error>
+  </div>
+</div>
