@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
-  <span>NFT Viewer</span>
-  <span class="chain-name">@ {{ chainName }}</span>
+  <span>NFT Viewer Dapp</span>
+  <span class="chain-name" *ngIf="chainName">@ {{ chainName }}</span>
   <span class="spacer"></span>
   <button mat-icon-button>
     <mat-icon>favorite</mat-icon>

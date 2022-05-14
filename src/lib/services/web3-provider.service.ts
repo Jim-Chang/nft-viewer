@@ -14,13 +14,19 @@ export function chainIdToName(chainId: number): string {
   providedIn: 'root',
 })
 export class Web3ProviderService {
-  private LOCAL_PROVIDER = 'http://localhost:8545';
   private web3: Web3;
   private contractMap: { [address: string]: BaseContract } = {};
 
   constructor(private ngZone: NgZone) {
-    this.web3 = new Web3(Web3.givenProvider || this.LOCAL_PROVIDER);
-    console.log('web3 provider', this.web3, Web3.givenProvider);
+    if (Web3.givenProvider) {
+      this.web3 = new Web3(Web3.givenProvider);
+    } else {
+      console.log('web3 provider not found');
+    }
+  }
+
+  isBrowserSupportWeb3(): boolean {
+    return !!Web3.givenProvider;
   }
 
   getChainId$(): Observable<number> {

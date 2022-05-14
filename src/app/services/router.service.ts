@@ -18,8 +18,6 @@ export class RouterService {
       .subscribe(([preEvt, curEvt]: NavigationEnd[]) => {
         this.previousUrl = preEvt.url;
         this.currentUrl = curEvt.urlAfterRedirects;
-        console.log('route previous url', preEvt.urlAfterRedirects);
-        console.log('route current url', curEvt.urlAfterRedirects);
       });
   }
 
@@ -41,5 +39,10 @@ export class RouterService {
     }
 
     this.router.navigate(['/', 'contract', contractAddress]);
+  }
+
+  navToErrorPage(): void {
+    console.log('navToErrorPage');
+    this.router.navigate(['/', 'error']);
   }
 }
