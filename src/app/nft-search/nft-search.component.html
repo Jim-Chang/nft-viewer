@@ -7,8 +7,8 @@
       </mat-form-field>
       <button mat-raised-button class="view-btn" color="primary" [disabled]="!contractAddress" (click)="onClickViewBtn()">View</button>
     </form>
-    <mat-error *ngIf="isShowError">
-      Not valid address or not contract address.
+    <mat-error *ngIf="errorCode">
+      {{ errorMessage }}
     </mat-error>
   </div>
 </div>

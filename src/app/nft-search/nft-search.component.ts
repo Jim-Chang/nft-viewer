@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterService } from 'App/services/router.service';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
-import { timingSafeEqual } from 'crypto';
-import { of } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nft-search',
@@ -12,23 +9,34 @@ import { filter, switchMap } from 'rxjs/operators';
 })
 export class NftSearchComponent {
   contractAddress: string;
-  isShowError = false;
+  errorCode = 0;
+
+  private NO_ERR = 0;
+  private ERR_NOT_VALID_ADDRESS = 1;
+  private ERR_NOT_VALID_CONTRACT_ADDRESS = 2;
+
+  get errorMessage(): string {
+    const map = {
+      [this.ERR_NOT_VALID_ADDRESS]: 'Not valid address.',
+      [this.ERR_NOT_VALID_CONTRACT_ADDRESS]:
+        'Not valid contract address, please check again of address or change network.',
+    };
+    return map[this.errorCode] ?? '';
+  }
 
   constructor(private routerService: RouterService, private web3Service: Web3ProviderService) {}
 
   onClickViewBtn(): void {
-    this.isShowError = false;
+    this.errorCode = this.NO_ERR;
 
     if (!this.web3Service.isAddress(this.contractAddress)) {
-      console.log('Not valid address');
-      this.isShowError = true;
+      this.errorCode = this.ERR_NOT_VALID_ADDRESS;
       return;
     }
 
     this.web3Service.isContractAddress$(this.contractAddress).subscribe((ret) => {
       if (!ret) {
-        console.log('Not contract address');
-        this.isShowError = true;
+        this.errorCode = this.ERR_NOT_VALID_CONTRACT_ADDRESS;
         return;
       }
       this.routerService.navToNftSeries(this.contractAddress);
