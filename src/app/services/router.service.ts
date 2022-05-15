@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subject, Observable } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
+
+export type UrlEvent = {
+  previousUrl: string;
+  currentUrl: string;
+};
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +14,11 @@ import { filter, pairwise } from 'rxjs/operators';
 export class RouterService {
   private previousUrl: string;
   private currentUrl: string;
+  private urlChange$$ = new Subject<UrlEvent>();
+
+  get urlChange$(): Observable<UrlEvent> {
+    return this.urlChange$$.asObservable();
+  }
 
   constructor(private router: Router) {
     this.router.events
@@ -17,7 +28,8 @@ export class RouterService {
       )
       .subscribe(([preEvt, curEvt]: NavigationEnd[]) => {
         this.previousUrl = preEvt.url;
-        this.currentUrl = curEvt.urlAfterRedirects;
+        this.currentUrl = curEvt.url;
+        this.urlChange$$.next({ previousUrl: this.previousUrl, currentUrl: this.currentUrl });
       });
   }
 

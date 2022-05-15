@@ -7,8 +7,8 @@ import { getContractClass } from 'Lib/contracts/utility';
 import { TokenURIService } from 'Lib/services/token-uri.service';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { httplizeIpfsUri } from 'Lib/utility';
-import { forkJoin, Observable } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { forkJoin, Observable, Subject } from 'rxjs';
+import { map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nft-entry',
@@ -16,16 +16,17 @@ import { map, startWith, switchMap } from 'rxjs/operators';
   styleUrls: ['./nft-entry.component.sass'],
 })
 export class NftEntryComponent {
-  private address: string;
-  private tokenId: number;
-  private contract: ERC721;
-  private NA = 'N/A';
-
   tokenInfo: TTokenInfo;
   metaData: TMetadata;
   basicInfos: { key: string; value: string | number }[];
 
   isLoadingMetaData = false;
+
+  private address: string;
+  private tokenId: number;
+  private contract: ERC721;
+  private NA = 'N/A';
+  private destroy$$ = new Subject<void>();
 
   get imageURL(): string {
     return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
@@ -38,7 +39,25 @@ export class NftEntryComponent {
     private tokenURIService: TokenURIService,
   ) {}
 
+  ngOnInit(): void {
+    this.routerService.urlChange$.pipe(takeUntil(this.destroy$$)).subscribe(() => {
+      this.loadNft();
+    });
+  }
+
   ngAfterContentInit(): void {
+    this.loadNft();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$$.next();
+  }
+
+  onClickBackButton(): void {
+    this.routerService.navToNftSeries(this.address);
+  }
+
+  private loadNft(): void {
     this.address = this.route.snapshot.paramMap.get('address')!;
     this.tokenId = parseInt(this.route.snapshot.paramMap.get('tokenId')!);
 
@@ -75,9 +94,5 @@ export class NftEntryComponent {
           { key: 'Background Color', value: this.metaData.background_color ?? this.NA },
         ];
       });
-  }
-
-  onClickBackButton(): void {
-    this.routerService.navToNftSeries(this.address);
   }
 }
