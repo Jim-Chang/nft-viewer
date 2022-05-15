@@ -48,6 +48,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
+    "cors-anywhere": "^0.4.4",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "8.0.0",
     "eslint-import-resolver-webpack": "0.13.0",
