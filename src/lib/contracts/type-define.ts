@@ -7,14 +7,14 @@ export type TTokenInfo = {
 };
 
 export type TMetadata = {
-  description: string;
-  name: string;
+  description?: string;
+  name?: string;
   external_url?: string;
   image?: string;
   background_color?: string;
   animation_url?: string;
   youtube_url?: string;
-  attributes: TAttribute[];
+  attributes?: TAttribute[];
 };
 
 export type TAttribute = {

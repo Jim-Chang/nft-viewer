@@ -19,6 +19,8 @@ export class NftEntryComponent {
   private address: string;
   private tokenId: number;
   private contract: ERC721;
+  private NA = 'N/A';
+
   tokenInfo: TTokenInfo;
   metaData: TMetadata;
   basicInfos: { key: string; value: string | number }[];
@@ -64,6 +66,13 @@ export class NftEntryComponent {
           { key: 'Total Supply', value: totalSupply },
           { key: 'Owner By', value: this.tokenInfo.owner },
           { key: 'URI', value: this.tokenInfo.tokenURI },
+          { key: 'Token Name', value: this.metaData.name ?? this.NA },
+          { key: 'Token Description', value: this.metaData.description ?? this.NA },
+          { key: 'External URL', value: this.metaData.external_url ?? this.NA },
+          { key: 'Image URL', value: this.metaData.image ?? this.NA },
+          { key: 'Animation URL', value: this.metaData.animation_url ?? this.NA },
+          { key: 'Youtube URL', value: this.metaData.youtube_url ?? this.NA },
+          { key: 'Background Color', value: this.metaData.background_color ?? this.NA },
         ];
       });
   }
