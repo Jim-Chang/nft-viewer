@@ -2,12 +2,9 @@
   <span class="app-name" [routerLink]="['/']">NFT Viewer Dapp</span>
   <span class="chain-name" *ngIf="chainName">@ {{ chainName }}</span>
   <span class="spacer"></span>
-  <button mat-icon-button>
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button>
-    <mat-icon>share</mat-icon>
-  </button>
+  <a mat-icon-button class="nav-btn" href="https://github.com/Jim-Chang/nft-viewer" target="_blank">
+    <img src="assets/github-logo.png">
+  </a>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
