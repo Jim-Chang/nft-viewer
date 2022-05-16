@@ -1,0 +1,19 @@
+version: "2.3"
+services:
+  cors-anywhere:
+    image: cors-anywhere:0.4.4
+    build: .
+    container_name: cors-anywhere
+    cpus: 1
+    cpu_count: 1
+    cpuset: "0"
+    mem_limit: 100M
+    ports:
+      - 8080:8080
+    restart: always
+    networks:
+      cors-anywhere-network:
+
+networks:
+   cors-anywhere-network:
+     driver: bridge
