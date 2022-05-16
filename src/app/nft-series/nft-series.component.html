@@ -6,6 +6,10 @@
 </div>
 
 <div class="content">
+  <div>
+    <a mat-button class="back-btn" [routerLink]="['/']"><mat-icon>arrow_back</mat-icon>Home</a>
+  </div>
+
   <nft-card-list
     [tokenInfos]="tokenInfos"
     [placeholderCount]="pageSize"

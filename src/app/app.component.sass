@@ -1,6 +1,13 @@
+@import "bootstrap.sass"
 .spacer
   flex: 1 1 auto
 
+.app-name
+  cursor: pointer
+
 .chain-name
   margin-left: 15px
-  font-size: 15px
+  font-size: 10px
+
+  @include media-breakpoint-up(sm)
+    font-size: 15px

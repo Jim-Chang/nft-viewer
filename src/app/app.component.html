@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>NFT Viewer Dapp</span>
+  <span class="app-name" [routerLink]="['/']">NFT Viewer Dapp</span>
   <span class="chain-name" *ngIf="chainName">@ {{ chainName }}</span>
   <span class="spacer"></span>
   <button mat-icon-button>
