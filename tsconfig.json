@@ -30,6 +30,7 @@
       "Lib/*": ["src/lib/*"],
       "ABI/*": ["src/abi/*"],
       "App/*": ["src/app/*"],
+      "Static/*": ["src/static/*"],
     },
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,

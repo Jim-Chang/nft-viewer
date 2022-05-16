@@ -1,6 +1,12 @@
 <div class="container">
   <div class="wrap">
-    <form class="form">
+    <div class="intro">
+      <h1>NFT Viewer Dapp</h1>
+      <h2>View NFT directly from blockchain</h2>
+      <p>NFT will not be delisted as long as it is still on the blockchain!</p>
+    </div>
+
+    <form class="search-form">
       <mat-form-field class="address-input" appearance="fill">
         <mat-label>Contract Address</mat-label>
         <input matInput [(ngModel)]="contractAddress" name="contractAddress" placeholder="Ex. 0x8001ed4ea0F7866ba4585706726aaec0159bd50b">
@@ -10,5 +16,16 @@
     <mat-error *ngIf="errorCode">
       {{ errorMessage }}
     </mat-error>
+
+    <div class="demo-nft-series">
+      <h3>Quick View NFT</h3>
+      <mat-card class="demo-nft-card" *ngFor="let data of demoNftList" (click)="onClickDemoNftSeriesCard(data)">
+        <mat-card-header>
+            <div mat-card-avatar class="nft-avatar" [style.background-image]="getBackgroundCssUrl(data.image)"></div>
+            <mat-card-title>{{ data.name }}</mat-card-title>
+            <mat-card-subtitle>{{ getChainName(data.chainId) }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
   </div>
 </div>

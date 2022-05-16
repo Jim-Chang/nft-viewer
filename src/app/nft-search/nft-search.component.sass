@@ -1,3 +1,4 @@
+@import "bootstrap.sass"
 .container
   padding: 20px
 
@@ -5,9 +6,10 @@
   max-width: 1000px
   margin: 0 auto
 
-.form
+.search-form
   display: flex
   width: 100%
+  padding: 20px 0
 
 .address-input
   flex: 1
@@ -19,3 +21,88 @@
 .view-btn
   width: 100px
   height: 57px
+
+.demo-nft-series
+  max-width: 500px
+  margin: 70px auto
+
+  h3
+    font-size: 25px
+    text-align: center
+    margin: 20px 0
+
+.demo-nft-card
+  margin: 15px 0
+  cursor: pointer
+
+.mat-card-title
+  padding-top: 26px
+  padding-left: 20px
+
+.mat-card-subtitle
+  padding-left: 20px
+
+.nft-avatar
+  background-size: cover
+  height: 100px
+  width: 100px
+
+.intro
+  padding: 80px 0
+
+  @include media-breakpoint-up(xs)
+    padding: 60px 0
+
+  @include media-breakpoint-up(md)
+    padding: 70px 0
+
+  @include media-breakpoint-up(lg)
+    padding: 80px 0
+
+  h1
+    text-align: center
+    font-weight: bold
+    color: $gray-900
+    margin-bottom: 60px
+
+    @include media-breakpoint-up(xs)
+      font-size: 40px
+      margin-bottom: 40px
+
+    @include media-breakpoint-up(md)
+      font-size: 55px
+      margin-bottom: 50px
+
+    @include media-breakpoint-up(lg)
+      font-size: 70px
+      margin-bottom: 60px
+
+  h2
+    text-align: center
+    font-size: 30px
+    color: $gray-700
+
+    @include media-breakpoint-up(xs)
+      font-size: 20px
+      margin-bottom: 5px
+
+    @include media-breakpoint-up(md)
+      font-size: 25px
+      margin-bottom: 11px
+
+    @include media-breakpoint-up(lg)
+      font-size: 30px
+      margin-bottom: 17px
+
+  p
+    text-align: center
+    color: $gray-600
+
+    @include media-breakpoint-up(xs)
+      font-size: 15px
+
+    @include media-breakpoint-up(md)
+      font-size: 18px
+
+    @include media-breakpoint-up(lg)
+      font-size: 20px

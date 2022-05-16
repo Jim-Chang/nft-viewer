@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterService } from 'App/services/router.service';
-import { Web3ProviderService } from 'Lib/services/web3-provider.service';
+import { Web3ProviderService, chainIdToName } from 'Lib/services/web3-provider.service';
+import { shuffle } from 'Lib/utility';
+import DEMO_NFT_LIST from 'Static/demo-nft.json';
+import { filter } from 'rxjs/operators';
+
+type TNftSeriesDemoData = {
+  name: string;
+  chainId: number;
+  image: string;
+  address: string;
+};
 
 @Component({
   selector: 'app-nft-search',
@@ -10,10 +20,15 @@ import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 export class NftSearchComponent {
   contractAddress: string;
   errorCode = 0;
+  demoNftList: TNftSeriesDemoData[];
 
   private NO_ERR = 0;
   private ERR_NOT_VALID_ADDRESS = 1;
   private ERR_NOT_VALID_CONTRACT_ADDRESS = 2;
+
+  get isAddress(): boolean {
+    return this.web3Service.isAddress(this.contractAddress);
+  }
 
   get errorMessage(): string {
     const map = {
@@ -25,6 +40,18 @@ export class NftSearchComponent {
   }
 
   constructor(private routerService: RouterService, private web3Service: Web3ProviderService) {}
+
+  ngAfterContentInit(): void {
+    this.demoNftList = shuffle(DEMO_NFT_LIST).slice(0, 5);
+  }
+
+  getChainName(chainId: number): string {
+    return chainIdToName(chainId);
+  }
+
+  getBackgroundCssUrl(url: string): string {
+    return `url('${url}')`;
+  }
 
   onClickViewBtn(): void {
     this.errorCode = this.NO_ERR;
@@ -43,7 +70,11 @@ export class NftSearchComponent {
     });
   }
 
-  get isAddress(): boolean {
-    return this.web3Service.isAddress(this.contractAddress);
+  onClickDemoNftSeriesCard(data: TNftSeriesDemoData): void {
+    console.log(data);
+    this.web3Service
+      .switchChainIfNeed$(data.chainId)
+      .pipe(filter((ret) => ret))
+      .subscribe(() => this.routerService.navToNftSeries(data.address));
   }
 }

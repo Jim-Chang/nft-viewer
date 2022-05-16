@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bored Ape Yacht Club",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB=s0",
+    "address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+  },
+  {
+    "name": "Mutant Ape Yacht Club",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/lHexKRMpw-aoSyB1WdFBff5yfANLReFxHzt1DOj_sg7mS14yARpuvYcUtsyyx-Nkpk6WTcUPFoG53VnLJezYi8hAs0OxNZwlw6Y-dmI=s0",
+    "address": "0x60e4d786628fea6478f785a6d7e704777c86a7c6"
+  },
+  {
+    "name": "Moonbirds",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/H-eyNE1MwL5ohL-tCfn_Xa1Sl9M9B4612tLYeUlQubzt4ewhr4huJIR5OLuyO3Z5PpJFSwdm7rq-TikAh7f5eUw338A2cy6HRH75=s0",
+    "address": "0x23581767a106ae21c074b2276d25e5c3e136a68b"
+  },
+  {
+    "name": "CryptoBurbs II",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/6p9a3iRPdi6cBThT7uyF8sT0ufx9mYkUkr_PUo3pcMWg0Znj76eI0sy9BLrwVTFm9nzfFmwWqDuZMeGgSc5V0juMX0SIXEQU-rifRw=s0",
+    "address": "0x3e55d389d352f4905961a6b32ca53b2f229fed73"
+  },
+  {
+    "name": "Azuki",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/H8jOCJuQokNqGBpkBN5wk1oZwO7LM8bNnrHCaekV2nKjnCqw6UB5oaH8XyNeBDj6bA_n1mjejzhFQUP3O1NfjFLHr3FOaeHcTOOT=s0",
+    "address": "0xed5af388653567af2f388e6224dc7c4b3241c544"
+  },
+  {
+    "name": "mfers",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/J2iIgy5_gmA8IS6sXGKGZeFVZwhldQylk7w7fLepTE9S7ICPCn_dlo8kypX8Ju0N6wvLVOKsbP_7bNGd8cpKmWhFQmqMXOC8q2sOdqw=s130",
+    "address": "0x79fcdef22feed20eddacbb2587640e45491b757f"
+  },
+  {
+    "name": "Demi-Human NFT",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/G6UJ0SwCc2_OADITOFPyCIVxtpdklRHeaw_HZosJEf2FAOJSd3PAfmpDi6dkgHklJ7fWeYCsmvOl9FexpNoU97IY7ZrY7pUIiZB_=s130",
+    "address": "0xa6916545a56f75acd43fb6a1527a73a41d2b4081"
+  },
+  {
+    "name": "DePhantaBear",
+    "chainId": 1,
+    "image": "https://lh3.googleusercontent.com/1wTnxFx6paNeV1lv_ht10OFpDucUhg-fL6IZbPrai3Jf_3pHS5dSazhpU_UBn2BVQBUEffYAeoo2iVbCu9LPeUDhmwZwt_7J4xpdrQ=s130",
+    "address": "0x67d9417c9c3c250f61a83c7e8658dac487b56b09"
+  }
+]

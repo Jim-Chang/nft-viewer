@@ -54,7 +54,7 @@ export class NftEntryComponent {
   }
 
   onClickBackButton(): void {
-    this.routerService.navToNftSeries(this.address);
+    this.routerService.navBackToNftSeries(this.address);
   }
 
   private loadNft(): void {

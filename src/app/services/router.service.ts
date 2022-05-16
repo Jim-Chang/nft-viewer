@@ -33,11 +33,15 @@ export class RouterService {
       });
   }
 
+  navToNftSeries(contractAddress: string): void {
+    this.router.navigate(['/', 'contract', contractAddress]);
+  }
+
   navToNftSeriesWithPageNum(contractAddress: string, page: number): void {
     this.router.navigate(['/', 'contract', contractAddress, 'page', page]);
   }
 
-  navToNftSeries(contractAddress: string): void {
+  navBackToNftSeries(contractAddress: string): void {
     if (this.previousUrl) {
       // /contract/0x0000...
       const regex = /^\/contract\/([A-Za-z0-9]+)$/;
