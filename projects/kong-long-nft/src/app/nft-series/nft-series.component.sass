@@ -1,0 +1,47 @@
+@import "bootstrap.sass"
+
+.banner
+  width: 100%
+  height: 300px
+  background: $gray-200
+  display: flex
+  justify-content: center
+  align-items: center
+
+.contract-name
+  font-size: 60px
+  display: block
+  margin-bottom: 30px
+
+.total-supply
+  font-size: 20px
+
+.content
+  margin: 0 auto
+
+  @include media-breakpoint-up(sm)
+    width: 100%
+
+  @include media-breakpoint-up(md)
+    width: 660px
+
+  @include media-breakpoint-up(lg)
+    width: 992px
+
+  @include media-breakpoint-up(xl)
+    width: 990px
+
+  @include media-breakpoint-up(xxl)
+    width: 1320px
+
+.mat-paginator
+  background: none
+
+.hint
+  text-align: center
+  margin-top: 50px
+
+  span
+    text-decoration: underline
+    color: $blue-600
+    cursor: pointer

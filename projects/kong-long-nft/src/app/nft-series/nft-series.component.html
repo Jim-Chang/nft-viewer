@@ -1,0 +1,32 @@
+<div class="banner">
+  <div>
+    <h2 class="contract-name">KongLongNFT</h2>
+    <p class="total-supply">total supply: {{ contract?.totalSupply$() | async }}</p>
+  </div>
+</div>
+
+
+
+<div class="content" *ngIf="isShowNFTContent else hint">
+  <nft-card-list
+    [tokenInfos]="tokenInfos"
+    [placeholderCount]="pageSize"
+    [isShowPlaceholder]="isLoadingTokenInfos"
+  ></nft-card-list>
+
+  <mat-paginator
+    [length]="totalSupply"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangePage($event)"
+    aria-label="Select page">
+  </mat-paginator>
+
+</div>
+
+<ng-template #hint>
+  <div class="content">
+    <p class="hint">KongLongNFT is on Polygon chain, please <span (click)="onClickChangeToPolygon()">click me</span> to change network.</p>
+  </div>
+</ng-template>

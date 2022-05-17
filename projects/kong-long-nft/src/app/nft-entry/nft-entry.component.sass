@@ -1,0 +1,60 @@
+@import "bootstrap.sass"
+
+.container
+  margin: 0 auto
+  padding: 25px 15px
+
+  @include media-breakpoint-up(sm)
+    width: 100%
+
+  @include media-breakpoint-up(md)
+    width: 660px
+    justify-content: flex-start
+
+  @include media-breakpoint-up(lg)
+    width: 992px
+
+  @include media-breakpoint-up(xl)
+    width: 990px
+
+  @include media-breakpoint-up(xxl)
+    width: 1320px
+
+.back-btn
+  margin: 10px 0 10px -10px
+
+.token-name
+  font-size: 50px
+  margin-bottom: 35px
+  text-align: center
+
+.card-wrapper
+  width: 100%
+
+.card
+  display: block
+  margin: 20px auto
+  padding: 0
+  max-width: 700px
+
+.table-wrapper
+  margin-bottom: 20px
+  overflow-x: scroll
+
+  @include media-breakpoint-up(lg)
+    overflow-x: inherit
+
+.mat-table
+  width: 100%
+
+.mat-column-name
+  min-width: 140px
+
+.hint
+  text-align: center
+  margin-top: 50px
+
+  span
+    text-decoration: underline
+    color: $blue-600
+    cursor: pointer

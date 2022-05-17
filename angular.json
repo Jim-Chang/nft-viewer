@@ -68,41 +68,6 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            },
-            "konglong-prod": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "4mb",
-                  "maximumError": "6mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.konglong.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "konglong-dev": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.konglong.ts"
-                }
-              ]
             }
           },
           "defaultConfiguration": "production"
@@ -116,12 +81,6 @@
             },
             "development": {
               "browserTarget": "nft-viewer:build:development"
-            },
-            "konglong-prod": {
-              "browserTarget": "nft-viewer:build:konglong-prod"
-            },
-            "konglong-dev": {
-              "browserTarget": "nft-viewer:build:konglong-dev"
             }
           },
           "defaultConfiguration": "development"
@@ -147,6 +106,113 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.sass"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "kong-long-nft": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/kong-long-nft",
+      "sourceRoot": "projects/kong-long-nft/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/kong-long-nft",
+            "index": "projects/kong-long-nft/src/index.html",
+            "main": "projects/kong-long-nft/src/main.ts",
+            "polyfills": "projects/kong-long-nft/src/polyfills.ts",
+            "tsConfig": "projects/kong-long-nft/tsconfig.app.json",
+            "inlineStyleLanguage": "sass",
+            "assets": [
+              "projects/kong-long-nft/src/favicon.ico",
+              "projects/kong-long-nft/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/kong-long-nft/src/styles.sass"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/lib/ui/style"]
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/kong-long-nft/src/environments/environment.ts",
+                  "with": "projects/kong-long-nft/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "kong-long-nft:build:production"
+            },
+            "development": {
+              "browserTarget": "kong-long-nft:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "kong-long-nft:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/kong-long-nft/src/test.ts",
+            "polyfills": "projects/kong-long-nft/src/polyfills.ts",
+            "tsConfig": "projects/kong-long-nft/tsconfig.spec.json",
+            "karmaConfig": "projects/kong-long-nft/karma.conf.js",
+            "inlineStyleLanguage": "sass",
+            "assets": [
+              "projects/kong-long-nft/src/favicon.ico",
+              "projects/kong-long-nft/src/assets"
+            ],
+            "styles": [
+              "projects/kong-long-nft/src/styles.sass"
             ],
             "scripts": []
           }

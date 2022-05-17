@@ -1,10 +1,7 @@
-import { ERC721 } from './erc-721';
-import ABI_KONG_LONG_NFT from 'ABI/KongLongNFT.json';
-import { BaseContract } from 'Lib/contracts/base-contract';
-import { from, forkJoin, Observable, zip, of } from 'rxjs';
+import ABI_KONG_LONG_NFT from './KongLongNFT.json';
+import { ERC721 } from 'Lib/contracts/erc-721';
+import { from, Observable } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
 export class KongLongNFT extends ERC721 {
