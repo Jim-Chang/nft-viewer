@@ -11,6 +11,7 @@ export type TMetadata = {
   name?: string;
   external_url?: string;
   image?: string;
+  imageUrl?: string;
   background_color?: string;
   animation_url?: string;
   youtube_url?: string;

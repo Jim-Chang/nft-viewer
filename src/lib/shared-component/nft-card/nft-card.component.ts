@@ -1,9 +1,8 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TMetadata, TTokenInfo } from 'Lib/contracts/type-define';
 import { TokenURIService } from 'Lib/services/token-uri.service';
-import { httplizeIpfsUri } from 'Lib/utility';
-import { Observable } from 'rxjs';
+import { httplizeIpfsUri, replacePinataGateway } from 'Lib/utility';
 
 @Component({
   selector: 'nft-card',
@@ -20,7 +19,8 @@ export class NftCardComponent {
   constructor(private router: Router, private tokenURIService: TokenURIService) {}
 
   get imageURL(): string {
-    return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
+    const url = this.metaData?.image || this.metaData?.imageUrl;
+    return url ? replacePinataGateway(httplizeIpfsUri(url)) : '';
   }
 
   ngOnChanges(changes: SimpleChanges): void {

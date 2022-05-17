@@ -88,7 +88,7 @@ export class NftEntryComponent {
           { key: 'Token Name', value: this.metaData.name ?? this.NA },
           { key: 'Token Description', value: this.metaData.description ?? this.NA },
           { key: 'External URL', value: this.metaData.external_url ?? this.NA },
-          { key: 'Image URL', value: this.metaData.image ?? this.NA },
+          { key: 'Image URL', value: (this.metaData.image || this.metaData.imageUrl) ?? this.NA },
           { key: 'Animation URL', value: this.metaData.animation_url ?? this.NA },
           { key: 'Youtube URL', value: this.metaData.youtube_url ?? this.NA },
           { key: 'Background Color', value: this.metaData.background_color ?? this.NA },
