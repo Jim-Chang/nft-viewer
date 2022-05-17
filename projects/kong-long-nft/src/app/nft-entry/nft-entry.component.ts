@@ -1,14 +1,14 @@
+import { environment } from './../../environments/environment';
+import { KongLongNFT } from './../contract/kong-long-nft';
 import { RouterService } from './../services/router.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ERC721 } from 'Lib/contracts/erc-721';
 import { TMetadata, TTokenInfo } from 'Lib/contracts/type-define';
-import { getContractClass } from 'Lib/contracts/utility';
 import { TokenURIService } from 'Lib/services/token-uri.service';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { httplizeIpfsUri } from 'Lib/utility';
-import { forkJoin, Observable, Subject } from 'rxjs';
-import { map, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { forkJoin, Subject, of } from 'rxjs';
+import { switchMap, takeUntil, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nft-entry',
@@ -21,10 +21,11 @@ export class NftEntryComponent {
   basicInfos: { key: string; value: string | number }[];
 
   isLoadingMetaData = false;
+  isShowNFTContent = true;
 
   private address: string;
   private tokenId: number;
-  private contract: ERC721;
+  private contract: KongLongNFT;
   private NA = 'N/A';
   private destroy$$ = new Subject<void>();
 
@@ -39,14 +40,32 @@ export class NftEntryComponent {
     private tokenURIService: TokenURIService,
   ) {}
 
-  ngOnInit(): void {
-    this.routerService.urlChange$.pipe(takeUntil(this.destroy$$)).subscribe(() => {
-      this.loadNft();
-    });
-  }
-
   ngAfterContentInit(): void {
-    this.loadNft();
+    this.web3Service
+      .getChainId$()
+      .pipe(
+        switchMap((chainId) => {
+          if (chainId === environment.NFTchainId) {
+            return of(true);
+          }
+          this.isShowNFTContent = false;
+          return this.web3Service.switchChainIfNeed$(environment.NFTchainId);
+        }),
+        filter((ret) => ret),
+      )
+      .subscribe(() => {
+        this.loadNft();
+      });
+
+    this.web3Service
+      .chainChanged$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((chainId) => {
+        this.isShowNFTContent = chainId === environment.NFTchainId;
+        if (chainId === environment.NFTchainId) {
+          this.loadNft();
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -57,11 +76,20 @@ export class NftEntryComponent {
     this.routerService.navBackToNftSeries();
   }
 
+  onClickChangeToPolygon(): void {
+    this.web3Service
+      .switchChainIfNeed$(environment.NFTchainId)
+      .pipe(filter((ret) => ret))
+      .subscribe(() => {
+        this.loadNft();
+      });
+  }
+
   private loadNft(): void {
     this.address = this.route.snapshot.paramMap.get('address')!;
     this.tokenId = parseInt(this.route.snapshot.paramMap.get('tokenId')!);
 
-    this.contract = this.web3Service.getContract(getContractClass(), this.address) as ERC721;
+    this.contract = this.web3Service.getContract(KongLongNFT, this.address) as KongLongNFT;
 
     this.isLoadingMetaData = true;
     this.contract

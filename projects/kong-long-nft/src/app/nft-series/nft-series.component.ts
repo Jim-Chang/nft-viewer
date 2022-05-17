@@ -84,12 +84,15 @@ export class NftSeriesComponent implements OnInit {
         this.initContract();
       });
 
-    this.web3Service.chainChanged$().subscribe((chainId) => {
-      this.isShowNFTContent = chainId === environment.NFTchainId;
-      if (chainId === environment.NFTchainId) {
-        this.initContract();
-      }
-    });
+    this.web3Service
+      .chainChanged$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((chainId) => {
+        this.isShowNFTContent = chainId === environment.NFTchainId;
+        if (chainId === environment.NFTchainId) {
+          this.initContract();
+        }
+      });
   }
 
   ngOnDestroy(): void {
