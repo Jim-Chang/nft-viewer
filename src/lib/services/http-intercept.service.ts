@@ -1,6 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addCorsProxy, httplizeIpfsUri } from 'Lib/utility';
+import { addCorsProxy, httplizeIpfsUri, replacePinataGateway } from 'Lib/utility';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let url = httplizeIpfsUri(req.url);
+    url = replacePinataGateway(url);
     url = addCorsProxy(url);
     req = req.clone({ url });
     return next.handle(req);
