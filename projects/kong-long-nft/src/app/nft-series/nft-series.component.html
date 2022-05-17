@@ -1,0 +1,28 @@
+<div class="banner">
+  <div>
+    <h2 class="contract-name">{{ contract.name$() | async }}</h2>
+    <p class="total-supply">total supply: {{ contract.totalSupply$() | async }}</p>
+  </div>
+</div>
+
+<div class="content">
+  <div>
+    <a mat-button class="back-btn" [routerLink]="['/']"><mat-icon>arrow_back</mat-icon>Home</a>
+  </div>
+
+  <nft-card-list
+    [tokenInfos]="tokenInfos"
+    [placeholderCount]="pageSize"
+    [isShowPlaceholder]="isLoadingTokenInfos"
+  ></nft-card-list>
+
+  <mat-paginator
+    [length]="totalSupply"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onChangePage($event)"
+    aria-label="Select page">
+  </mat-paginator>
+
+</div>

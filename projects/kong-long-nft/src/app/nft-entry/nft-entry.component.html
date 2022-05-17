@@ -1,0 +1,59 @@
+<div class="container">
+  <div>
+    <a mat-button class="back-btn" (click)="onClickBackButton()"><mat-icon>arrow_back</mat-icon>NFT List</a>
+  </div>
+
+  <div>
+    <h2 class="token-name">{{ metaData?.name }}</h2>
+
+    <div class="card-wrapper">
+      <nft-card
+          class="card"
+          [tokenInfo]="tokenInfo"
+          [disableClick]="true"
+          [isPlaceholder]="isLoadingMetaData"
+      ></nft-card>
+    </div>
+
+    <h3>Info</h3>
+    <div class="table-wrapper">
+      <table mat-table *ngIf="metaData" [dataSource]="basicInfos" class="mat-elevation-z8 mat-table">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Key </th>
+          <td mat-cell *matCellDef="let info"> {{info.key}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Value </th>
+          <td mat-cell *matCellDef="let info"> {{info.value}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'value']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'value'];"></tr>
+      </table>
+
+    </div>
+
+    <ng-container *ngIf="metaData && metaData.attributes">
+      <h3>Properties</h3>
+      <div class="table-wrapper">
+        <table mat-table *ngIf="metaData" [dataSource]="metaData.attributes" class="mat-elevation-z8 mat-table">
+
+          <ng-container matColumnDef="trait_type">
+            <th mat-header-cell *matHeaderCellDef> Trait Type </th>
+            <td mat-cell *matCellDef="let attr"> {{attr.trait_type}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef> Value </th>
+            <td mat-cell *matCellDef="let attr"> {{attr.value}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['trait_type', 'value']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['trait_type', 'value'];"></tr>
+        </table>
+      </div>
+    </ng-container>
+
+</div>
