@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { RouterService } from '../services/router.service';
+import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterService } from 'App/services/router.service';
-import { ERC721 } from 'Lib/contracts/erc-721';
+import { ActivatedRoute } from '@angular/router';
 import { TTokenInfo } from 'Lib/contracts/type-define';
-import { getContractClass } from 'Lib/contracts/utility';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { range } from 'Lib/utility';
-import { Observable, Subject } from 'rxjs';
-import { debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
+import { KongLongNFT } from 'projects/kong-long-nft/src/app/contract/kong-long-nft';
+import { Observable, Subject, of } from 'rxjs';
+import { debounceTime, map, switchMap, takeUntil, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'nft-series',
@@ -16,7 +16,7 @@ import { debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
   styleUrls: ['./nft-series.component.sass'],
 })
 export class NftSeriesComponent implements OnInit {
-  @Input() contract: ERC721;
+  contract: KongLongNFT;
   tokenInfos: TTokenInfo[];
 
   totalSupply = 0;
@@ -25,8 +25,8 @@ export class NftSeriesComponent implements OnInit {
   pageSizeOptions = [12, 24, 36];
 
   isLoadingTokenInfos = false;
+  isShowNFTContent = true;
 
-  private address: string | null;
   private pageChange$$ = new Subject<PageEvent>();
   private destroy$$ = new Subject<void>();
   private DEFAULT_PAGE = 1;
@@ -58,7 +58,7 @@ export class NftSeriesComponent implements OnInit {
         switchMap((pageEvent) => {
           this.pageIndex = pageEvent.pageIndex;
           this.pageSize = pageEvent.pageSize;
-          this.routerService.navToNftSeriesWithPageNum(this.address!, this.pageIndex + 1);
+          this.routerService.navToNftSeriesWithPageNum(this.pageIndex + 1);
           return this.getTokenInfos$();
         }),
       )
@@ -68,22 +68,28 @@ export class NftSeriesComponent implements OnInit {
   ngAfterContentInit(): void {
     this.initParamFromRoute();
 
-    if (!this.contract && !this.address) {
-      throw 'Please provide contract or address for NFT series component';
-    }
-    if (!this.contract) {
-      this.contract = this.web3Service.getContract(getContractClass(), this.address!) as ERC721;
-    }
-
-    this.contract
-      .totalSupply$()
+    this.web3Service
+      .getChainId$()
       .pipe(
-        switchMap((totalSupply) => {
-          this.totalSupply = totalSupply;
-          return this.getTokenInfos$();
+        switchMap((chainId) => {
+          if (chainId === environment.NFTchainId) {
+            return of(true);
+          }
+          this.isShowNFTContent = false;
+          return this.web3Service.switchChainIfNeed$(environment.NFTchainId);
         }),
+        filter((ret) => ret),
       )
-      .subscribe();
+      .subscribe(() => {
+        this.initContract();
+      });
+
+    this.web3Service.chainChanged$().subscribe((chainId) => {
+      this.isShowNFTContent = chainId === environment.NFTchainId;
+      if (chainId === environment.NFTchainId) {
+        this.initContract();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -94,10 +100,33 @@ export class NftSeriesComponent implements OnInit {
     this.pageChange$$.next(pageEvent);
   }
 
+  onClickChangeToPolygon(): void {
+    this.web3Service
+      .switchChainIfNeed$(environment.NFTchainId)
+      .pipe(filter((ret) => ret))
+      .subscribe(() => {
+        this.initContract();
+      });
+  }
+
   private initParamFromRoute(): void {
     const paramMap = this.route.snapshot.paramMap;
-    this.address = paramMap.get('address');
     this.pageIndex = parseInt(paramMap.get('page') ?? this.DEFAULT_PAGE.toString()) - 1;
+  }
+
+  private initContract(): void {
+    this.isShowNFTContent = true;
+    this.contract = this.web3Service.getContract(KongLongNFT, environment.kongLongNFTAddress) as KongLongNFT;
+
+    this.contract
+      .totalSupply$()
+      .pipe(
+        switchMap((totalSupply) => {
+          this.totalSupply = totalSupply;
+          return this.getTokenInfos$();
+        }),
+      )
+      .subscribe();
   }
 
   private getTokenInfos$(): Observable<void> {

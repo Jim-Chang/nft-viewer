@@ -1,15 +1,13 @@
 <div class="banner">
   <div>
-    <h2 class="contract-name">{{ contract.name$() | async }}</h2>
-    <p class="total-supply">total supply: {{ contract.totalSupply$() | async }}</p>
+    <h2 class="contract-name">KongLongNFT</h2>
+    <p class="total-supply">total supply: {{ contract?.totalSupply$() | async }}</p>
   </div>
 </div>
 
-<div class="content">
-  <div>
-    <a mat-button class="back-btn" [routerLink]="['/']"><mat-icon>arrow_back</mat-icon>Home</a>
-  </div>
 
+
+<div class="content" *ngIf="isShowNFTContent else hint">
   <nft-card-list
     [tokenInfos]="tokenInfos"
     [placeholderCount]="pageSize"
@@ -26,3 +24,9 @@
   </mat-paginator>
 
 </div>
+
+<ng-template #hint>
+  <div class="content">
+    <p class="hint">KongLongNFT is on Polygon chain, please <span (click)="onClickChangeToPolygon()">click me</span> to change network.</p>
+  </div>
+</ng-template>

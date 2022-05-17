@@ -33,28 +33,26 @@ export class RouterService {
       });
   }
 
-  navToNftSeries(contractAddress: string): void {
-    this.router.navigate(['/', 'contract', contractAddress]);
+  navToNftSeries(): void {
+    this.router.navigate(['/']);
   }
 
-  navToNftSeriesWithPageNum(contractAddress: string, page: number): void {
-    this.router.navigate(['/', 'contract', contractAddress, 'page', page]);
+  navToNftSeriesWithPageNum(page: number): void {
+    this.router.navigate(['/', 'page', page]);
   }
 
-  navBackToNftSeries(contractAddress: string): void {
+  navBackToNftSeries(): void {
     if (this.previousUrl) {
-      // /contract/0x0000...
-      const regex = /^\/contract\/([A-Za-z0-9]+)$/;
-      // /ocontract/0x0000.../page/2
-      const regexWithPage = /^\/contract\/([A-Za-z0-9]+)\/page\/\d+$/;
+      // /page/2
+      const regex = /^\/page\/\d+$/;
 
-      if (regex.test(this.previousUrl) || regexWithPage.test(this.previousUrl)) {
+      if (regex.test(this.previousUrl)) {
         this.router.navigateByUrl(this.previousUrl);
         return;
       }
     }
 
-    this.router.navigate(['/', 'contract', contractAddress]);
+    this.router.navigate(['/']);
   }
 
   navToErrorPage(): void {

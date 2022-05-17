@@ -8,7 +8,7 @@ const routes = [
   { path: '', component: NftSeriesComponent },
   { path: 'error', component: ErrorPageComponent },
   { path: 'page/:page', component: NftSeriesComponent },
-  { path: 'token/:tokenId', component: NftEntryComponent },
+  { path: 'contract/:address/token/:tokenId', component: NftEntryComponent },
 ];
 
 @NgModule({
