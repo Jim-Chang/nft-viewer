@@ -9,9 +9,17 @@
   align-items: center
 
 .contract-name
-  font-size: 60px
+  font-size: 40px
   display: block
-  margin-bottom: 30px
+  margin-bottom: 20px
+  line-height: 1.3em
+
+  @include media-breakpoint-up(md)
+    font-size: 50px
+    margin-bottom: 30px
+
+  @include media-breakpoint-up(lg)
+    font-size: 60px
 
 .total-supply
   font-size: 20px
