@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TMetadata } from 'Lib/contracts/type-define';
+import { httplizeIpfsUri } from 'Lib/utility';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -14,8 +15,21 @@ export class TokenURIService {
 
   getMetaData$(tokenUri: string): Observable<TMetadata> {
     if (!this.metaData$[tokenUri]) {
-      this.metaData$[tokenUri] = this.http.get<TMetadata>(tokenUri).pipe(shareReplay(1));
+      this.metaData$[tokenUri] = this.http.get<TMetadata>(tokenUri).pipe(
+        map((metaData) => this.httplizeIpfsUri(metaData)),
+        shareReplay(1),
+      );
     }
     return this.metaData$[tokenUri];
+  }
+
+  private httplizeIpfsUri(metaData: TMetadata): TMetadata {
+    const imgUrl = metaData.image || metaData.imageUrl;
+    const aniURl = metaData.animation_url;
+    return {
+      ...metaData,
+      __httplizeImageUrl: imgUrl ? httplizeIpfsUri(imgUrl) : imgUrl,
+      __httplizeAnimationUrl: aniURl ? httplizeIpfsUri(aniURl) : aniURl,
+    };
   }
 }

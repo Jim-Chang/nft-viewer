@@ -16,6 +16,8 @@ export type TMetadata = {
   animation_url?: string;
   youtube_url?: string;
   attributes?: TAttribute[];
+  __httplizeImageUrl?: string;
+  __httplizeAnimationUrl?: string;
 };
 
 export type TAttribute = {

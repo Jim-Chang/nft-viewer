@@ -19,8 +19,7 @@ export class NftCardComponent {
   constructor(private router: Router, private tokenURIService: TokenURIService) {}
 
   get imageURL(): string {
-    const url = this.metaData?.image || this.metaData?.imageUrl;
-    return url ? replacePinataGateway(httplizeIpfsUri(url)) : '';
+    return this.metaData?.__httplizeImageUrl ?? '';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
