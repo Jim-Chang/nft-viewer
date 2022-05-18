@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 const routes = [
   { path: '', component: NftSearchComponent },
   { path: 'error', component: ErrorPageComponent },
+  { path: 'error/:errCode', component: ErrorPageComponent },
   { path: 'contract/:address', component: NftSeriesComponent },
   { path: 'contract/:address/page/:page', component: NftSeriesComponent },
   { path: 'contract/:address/token/:tokenId', component: NftEntryComponent },

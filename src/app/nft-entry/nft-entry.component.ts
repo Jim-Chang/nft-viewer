@@ -8,7 +8,8 @@ import { TokenURIService } from 'Lib/services/token-uri.service';
 import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { httplizeIpfsUri } from 'Lib/utility';
 import { forkJoin, Observable, Subject } from 'rxjs';
-import { map, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { map, startWith, switchMap, takeUntil, catchError } from 'rxjs/operators';
+import { ERR_CONTRACT_NOT_FOUND } from 'src/app/error-page/error-page.component';
 
 @Component({
   selector: 'app-nft-entry',
@@ -67,6 +68,10 @@ export class NftEntryComponent {
     this.contract
       .getTokenInfo$(this.tokenId)
       .pipe(
+        catchError((err) => {
+          this.routerService.navToErrorPage(ERR_CONTRACT_NOT_FOUND);
+          throw err;
+        }),
         switchMap((tokenInfo) => {
           this.tokenInfo = tokenInfo;
           return this.tokenURIService.getMetaData$(this.tokenInfo.tokenURI);

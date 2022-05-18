@@ -57,8 +57,11 @@ export class RouterService {
     this.router.navigate(['/', 'contract', contractAddress]);
   }
 
-  navToErrorPage(): void {
-    console.log('navToErrorPage');
-    this.router.navigate(['/', 'error']);
+  navToErrorPage(errCode: string | null = null): void {
+    if (errCode) {
+      this.router.navigate(['/', 'error', errCode]);
+    } else {
+      this.router.navigate(['/', 'error']);
+    }
   }
 }

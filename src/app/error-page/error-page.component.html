@@ -1,6 +1,20 @@
 <div class="container">
   <div class="wrap">
-    <h2>Oh no!</h2>
-    <p>Your browser doesn't support web3, please change browser or install plugin and try again!</p>
+    <div>
+      <a mat-button class="back-btn" [routerLink]="['/']"><mat-icon>arrow_back</mat-icon>Home</a>
+    </div>
+
+    <div class="content">
+      <h2>Oh no!</h2>
+
+      <ng-container *ngIf="!errCode">
+        <p>Your browser doesn't support web3, please change browser or install plugin and try again!</p>
+      </ng-container>
+
+      <ng-container *ngIf="errCode === '1'">
+        <p>This NFT contract is not found on <span>{{ chainName }}</span>, please check contract address or chain and try again.</p>
+      </ng-container>
+    </div>
+
   </div>
 </div>

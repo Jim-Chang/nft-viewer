@@ -9,6 +9,7 @@ import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { range } from 'Lib/utility';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
+import { ERR_CONTRACT_NOT_FOUND } from 'src/app/error-page/error-page.component';
 
 @Component({
   selector: 'nft-series',
@@ -83,7 +84,9 @@ export class NftSeriesComponent implements OnInit {
           return this.getTokenInfos$();
         }),
       )
-      .subscribe();
+      .subscribe({
+        error: () => this.routerService.navToErrorPage(ERR_CONTRACT_NOT_FOUND),
+      });
   }
 
   ngOnDestroy(): void {

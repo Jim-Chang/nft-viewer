@@ -56,7 +56,6 @@ export class RouterService {
   }
 
   navToErrorPage(): void {
-    console.log('navToErrorPage');
     this.router.navigate(['/', 'error']);
   }
 }

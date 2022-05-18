@@ -71,7 +71,6 @@ export class NftSearchComponent {
   }
 
   onClickDemoNftSeriesCard(data: TNftSeriesDemoData): void {
-    console.log(data);
     this.web3Service
       .switchChainIfNeed$(data.chainId)
       .pipe(filter((ret) => ret))
