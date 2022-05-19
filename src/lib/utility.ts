@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 export const IPFS = 'ipfs://';
-export const FLEEK_IPFS_GATEWAY_URL = 'https://ipfs.fleek.co/';
+export const IPFS_GATEWAY_URL = environment.ipfsGatewayURL;
 export const PINATA_GATEWAY_URL = 'https://gateway.pinata.cloud/';
 export const CORS_ANYWHERE = environment.corsAnywhereURL;
 
@@ -10,13 +10,13 @@ export const zipArray = (rows: any) => rows[0].map((_: any, c: any) => rows.map(
 export function httplizeIpfsUri(uri: string): string {
   if (uri.startsWith(IPFS)) {
     const cid = uri.replace(IPFS, '');
-    return `${FLEEK_IPFS_GATEWAY_URL}ipfs/${cid}`;
+    return `${IPFS_GATEWAY_URL}ipfs/${cid}`;
   }
   return uri;
 }
 
 export function addCorsProxy(url: string): string {
-  if (url.startsWith(FLEEK_IPFS_GATEWAY_URL)) {
+  if (url.startsWith(IPFS_GATEWAY_URL)) {
     return url;
   }
   return `${CORS_ANYWHERE}${url}`;
@@ -24,7 +24,7 @@ export function addCorsProxy(url: string): string {
 
 export function replacePinataGateway(url: string): string {
   if (url.includes(PINATA_GATEWAY_URL)) {
-    return url.replace(PINATA_GATEWAY_URL, FLEEK_IPFS_GATEWAY_URL);
+    return url.replace(PINATA_GATEWAY_URL, IPFS_GATEWAY_URL);
   }
   return url;
 }

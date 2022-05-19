@@ -3,4 +3,5 @@ export type TEnv = {
   NFTchainId: number;
   corsAnywhereURL: string;
   kongLongNFTAddress: string;
+  ipfsGatewayURL: string;
 };

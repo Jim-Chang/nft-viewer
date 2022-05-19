@@ -166,6 +166,10 @@
                 {
                   "replace": "projects/kong-long-nft/src/environments/environment.ts",
                   "with": "projects/kong-long-nft/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "projects/kong-long-nft/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -176,7 +180,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "projects/kong-long-nft/src/environments/environment.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
