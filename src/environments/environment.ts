@@ -8,6 +8,7 @@ export const environment: TEnv = {
   production: false,
   corsAnywhereURL: 'http://127.0.0.1:8080/',
   ipfsGatewayURL: 'https://ipfs.fleek.co/',
+  chainRPC: `https://mainnet.infura.io/v3/${process.env.NG_APP_INFURA_PORJ_ID}`,
 };
 
 /*

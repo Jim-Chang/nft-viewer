@@ -4,4 +4,5 @@ export type TEnv = {
   corsAnywhereURL: string;
   kongLongNFTAddress: string;
   ipfsGatewayURL: string;
+  chainRPC: string;
 };

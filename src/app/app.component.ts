@@ -14,11 +14,6 @@ export class AppComponent {
   constructor(private web3Service: Web3ProviderService, private routerService: RouterService) {}
 
   ngOnInit(): void {
-    if (!this.web3Service.isBrowserSupportWeb3()) {
-      this.routerService.navToErrorPage();
-      return;
-    }
-
     this.web3Service.getChainName$().subscribe((name) => (this.chainName = name));
     this.web3Service.chainChanged$().subscribe((chainId) => {
       this.chainName = chainIdToName(chainId);

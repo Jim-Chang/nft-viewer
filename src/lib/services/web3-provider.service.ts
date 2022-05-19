@@ -4,6 +4,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { BaseContract } from 'Lib/contracts/base-contract';
 import { from, iif, Observable, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import Web3 from 'web3';
 
 export function chainIdToName(chainId: number): string {
@@ -22,6 +23,7 @@ export class Web3ProviderService {
       this.web3 = new Web3(Web3.givenProvider);
     } else {
       console.log('web3 provider not found');
+      this.web3 = new Web3(environment.chainRPC);
     }
   }
 
@@ -80,11 +82,17 @@ export class Web3ProviderService {
   }
 
   switchChainIfNeed$(chainId: number): Observable<boolean> {
-    return this.getChainId$().pipe(
-      switchMap((id) => {
-        return iif(() => id === chainId, of(true), this.switchChain$(chainId));
-      }),
-    );
+    // if browser support web3, check chain id if need switch
+    if (this.isBrowserSupportWeb3()) {
+      return this.getChainId$().pipe(
+        switchMap((id) => {
+          return iif(() => id === chainId, of(true), this.switchChain$(chainId));
+        }),
+      );
+    } else {
+      // if browser not support, default use chainRPC, can't switch
+      return of(true);
+    }
   }
 
   // event
