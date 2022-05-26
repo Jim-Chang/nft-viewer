@@ -28,7 +28,13 @@
       "https": ["./node_modules/https-browserify"],
       "os": ["./node_modules/os-browserify"],
       "Lib/*": ["src/lib/*"],
-      "ABI/*": ["src/abi/*"],
+      "ABI/*": [
+        "src/abi/*"
+      ],
+      "lib-web3": [
+        "dist/lib-web3/lib-web3",
+        "dist/lib-web3"
+      ],
       "App/*": ["src/app/*"],
       "Static/*": ["src/static/*"],
     },
