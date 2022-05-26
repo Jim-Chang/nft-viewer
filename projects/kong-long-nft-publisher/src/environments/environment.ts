@@ -1,9 +1,14 @@
+import { TEnv } from './type';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment: TEnv = {
   production: false,
+  chainRPC: 'https://polygon-rpc.com',
+  ipfsGatewayURL: 'https://ipfs.koding.work/',
+  ipfsApiUrl: `${process.env.NG_APP_IPFS_API_URL}`,
 };
 
 /*
