@@ -234,6 +234,109 @@
           }
         }
       }
+    },
+    "kong-long-nft-publisher": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/kong-long-nft-publisher",
+      "sourceRoot": "projects/kong-long-nft-publisher/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@ngx-env/builder:browser",
+          "options": {
+            "outputPath": "dist/kong-long-nft-publisher",
+            "index": "projects/kong-long-nft-publisher/src/index.html",
+            "main": "projects/kong-long-nft-publisher/src/main.ts",
+            "polyfills": "projects/kong-long-nft-publisher/src/polyfills.ts",
+            "tsConfig": "projects/kong-long-nft-publisher/tsconfig.app.json",
+            "inlineStyleLanguage": "sass",
+            "assets": [
+              "projects/kong-long-nft-publisher/src/favicon.ico",
+              "projects/kong-long-nft-publisher/src/assets"
+            ],
+            "styles": [
+              "projects/kong-long-nft-publisher/src/styles.sass"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/kong-long-nft-publisher/src/environments/environment.ts",
+                  "with": "projects/kong-long-nft-publisher/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@ngx-env/builder:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "kong-long-nft-publisher:build:production"
+            },
+            "development": {
+              "browserTarget": "kong-long-nft-publisher:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@ngx-env/builder:extract-i18n",
+          "options": {
+            "browserTarget": "kong-long-nft-publisher:build"
+          }
+        },
+        "test": {
+          "builder": "@ngx-env/builder:karma",
+          "options": {
+            "main": "projects/kong-long-nft-publisher/src/test.ts",
+            "polyfills": "projects/kong-long-nft-publisher/src/polyfills.ts",
+            "tsConfig": "projects/kong-long-nft-publisher/tsconfig.spec.json",
+            "karmaConfig": "projects/kong-long-nft-publisher/karma.conf.js",
+            "inlineStyleLanguage": "sass",
+            "assets": [
+              "projects/kong-long-nft-publisher/src/favicon.ico",
+              "projects/kong-long-nft-publisher/src/assets"
+            ],
+            "styles": [
+              "projects/kong-long-nft-publisher/src/styles.sass"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   },
   "defaultProject": "nft-viewer"
