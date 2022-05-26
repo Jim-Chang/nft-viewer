@@ -1,15 +1,16 @@
 import { TBaseContract } from '../contracts/base-contract';
 import { TConnectInfo, IProviderRpcError, CHAIN_ID_NAME_MAP } from './web3-provider.type';
-import { Injectable, NgZone } from '@angular/core';
+import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core';
 import { BaseContract } from 'projects/lib-web3/src/lib/contracts/base-contract';
 import { from, iif, Observable, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import Web3 from 'web3';
 
 export function chainIdToName(chainId: number): string {
   return CHAIN_ID_NAME_MAP[chainId] ?? 'unknown';
 }
+
+export const FALLBACK_CHAIN_RPC_TOKEN = new InjectionToken<string>('FALLBACK_CHAIN_RPC_TOKEN');
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +19,12 @@ export class Web3ProviderService {
   private web3: Web3;
   private contractMap: { [address: string]: BaseContract } = {};
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone, @Inject(FALLBACK_CHAIN_RPC_TOKEN) private chainRPC: string) {
     if (Web3.givenProvider) {
       this.web3 = new Web3(Web3.givenProvider);
     } else {
       console.log('web3 provider not found');
-      this.web3 = new Web3(environment.chainRPC);
+      this.web3 = new Web3(chainRPC);
     }
   }
 

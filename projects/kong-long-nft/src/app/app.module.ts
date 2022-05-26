@@ -1,3 +1,4 @@
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -10,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpInterceptorService } from 'Lib/services/http-intercept.service';
 import { SharedComponentModule } from 'Lib/shared-component/shared-component.module';
 import { MaterialModule } from 'Lib/ui/material.module';
+import { FALLBACK_CHAIN_RPC_TOKEN } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 
 @NgModule({
   declarations: [AppComponent, NftSeriesComponent, NftEntryComponent, ErrorPageComponent],
@@ -27,6 +29,7 @@ import { MaterialModule } from 'Lib/ui/material.module';
       useClass: HttpInterceptorService,
       multi: true,
     },
+    { provide: FALLBACK_CHAIN_RPC_TOKEN, useValue: environment.chainRPC },
   ],
   bootstrap: [AppComponent],
 })
