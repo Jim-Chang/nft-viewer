@@ -1,5 +1,5 @@
 import ABI_KONG_LONG_NFT from './KongLongNFT.json';
-import { ERC721 } from 'Lib/contracts/erc-721';
+import { ERC721 } from 'projects/lib-web3/src/lib/contracts/erc-721';
 import { from, Observable } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { AbiItem } from 'web3-utils';

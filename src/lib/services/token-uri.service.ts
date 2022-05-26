@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TMetadata } from 'Lib/contracts/type-define';
 import { httplizeIpfsUri } from 'Lib/utility';
+import { TMetadata } from 'projects/lib-web3/src/lib/contracts/type-define';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 

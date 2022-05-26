@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TTokenInfo } from 'Lib/contracts/type-define';
+import { TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
 
 @Component({
   selector: 'nft-card-list',

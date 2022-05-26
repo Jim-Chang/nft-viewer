@@ -1,12 +1,12 @@
 import { RouterService } from './../services/router.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ERC721 } from 'Lib/contracts/erc-721';
-import { TMetadata, TTokenInfo } from 'Lib/contracts/type-define';
-import { getContractClass } from 'Lib/contracts/utility';
 import { TokenURIService } from 'Lib/services/token-uri.service';
-import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 import { httplizeIpfsUri } from 'Lib/utility';
+import { ERC721 } from 'projects/lib-web3/src/lib/contracts/erc-721';
+import { TMetadata, TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
+import { getContractClass } from 'projects/lib-web3/src/lib/contracts/utility';
+import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { map, startWith, switchMap, takeUntil, catchError } from 'rxjs/operators';
 import { ERR_CONTRACT_NOT_FOUND } from 'src/app/error-page/error-page.component';

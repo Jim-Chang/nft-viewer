@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { TMetadata, TTokenInfo } from 'Lib/contracts/type-define';
 import { TokenURIService } from 'Lib/services/token-uri.service';
 import { httplizeIpfsUri, replacePinataGateway } from 'Lib/utility';
+import { TMetadata, TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
 
 @Component({
   selector: 'nft-card',

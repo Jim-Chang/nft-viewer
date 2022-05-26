@@ -1,7 +1,7 @@
-import { TBaseContract } from './../contracts/base-contract';
+import { TBaseContract } from '../contracts/base-contract';
 import { TConnectInfo, IProviderRpcError, CHAIN_ID_NAME_MAP } from './web3-provider.type';
 import { Injectable, NgZone } from '@angular/core';
-import { BaseContract } from 'Lib/contracts/base-contract';
+import { BaseContract } from 'projects/lib-web3/src/lib/contracts/base-contract';
 import { from, iif, Observable, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';

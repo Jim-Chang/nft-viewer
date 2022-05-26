@@ -1,7 +1,7 @@
 import { TTokenInfo } from './type-define';
 import ABI_ERC721 from 'ABI/ERC721.json';
-import { BaseContract } from 'Lib/contracts/base-contract';
 import { zipArray } from 'Lib/utility';
+import { BaseContract } from 'projects/lib-web3/src/lib/contracts/base-contract';
 import { from, forkJoin, Observable, zip, of } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
