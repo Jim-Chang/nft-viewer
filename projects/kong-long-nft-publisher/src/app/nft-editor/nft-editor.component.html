@@ -1,0 +1,66 @@
+<div class="banner">
+  <div>
+    <h1 class="app-title">KongLong NFT Mint DApp</h1>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+    <drag-and-drop (fileDropped)="onFileDropped($event)"></drag-and-drop>
+
+    <form class="metadata-form" [formGroup]="form">
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput
+              placeholder="KongLong #2"
+              formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput
+              placeholder="Kong Long rock and roll!"
+              formControlName="description">
+      </mat-form-field>
+
+      <h3>Properties</h3>
+
+      <table class="full-width" cellspacing="0" formArrayName="attributes">
+        <ng-container *ngFor="let attrFg of attrFormArray.controls; let i = index">
+          <tr [formGroupName]="i">
+            <td>
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Trait Type</mat-label>
+                <input matInput
+                      placeholder="Head"
+                      formControlName="trait_type">
+              </mat-form-field>
+            <td>
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Value</mat-label>
+                <input matInput
+                      placeholder="Big"
+                      formControlName="value">
+              </mat-form-field>
+            </td>
+            <td>
+              <button mat-icon-button class="delete-btn" (click)="onClickDeleteAttrButton(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <tr class="center">
+          <td colspan="3">
+            <button mat-fab color="primary" (click)="onClickAddAttrButton()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+
+    </form>
+
+  </div>
+</div>

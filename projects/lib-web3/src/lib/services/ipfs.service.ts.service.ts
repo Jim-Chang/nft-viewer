@@ -3,6 +3,7 @@ import { AddResult, AddOptions } from 'ipfs-core-types/src/root';
 import { ImportCandidate } from 'ipfs-core-types/src/utils';
 import { create as createIpfsClient, IPFSHTTPClient } from 'ipfs-http-client';
 import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export const IPFS_GATEWAY_URL_TOKEN = new InjectionToken<string>('IPFS_GATEWAY_URL_TOKEN');
 export const IPFS_API_URL_TOKEN = new InjectionToken<string>('IPFS_API_URL_TOKEN');
@@ -54,11 +55,11 @@ export class IpfsService {
     return url;
   }
 
-  add(entry: ImportCandidate, options?: AddOptions): Observable<AddResult> {
-    return from(this.client.add(entry));
+  add(entry: ImportCandidate, options?: AddOptions): Observable<string> {
+    return from(this.client.add(entry)).pipe(map((ret) => ret.path));
   }
 
-  addAndPin(entry: ImportCandidate): Observable<AddResult> {
+  addAndPin(entry: ImportCandidate): Observable<string> {
     return this.add(entry, { pin: true });
   }
 }
