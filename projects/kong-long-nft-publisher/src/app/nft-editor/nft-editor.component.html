@@ -6,7 +6,7 @@
 
 <div class="content">
   <div class="container">
-    <drag-and-drop (fileDropped)="onFileDropped($event)"></drag-and-drop>
+    <image-drop (imgFileDropped)="onFileDropped($event)"></image-drop>
 
     <form class="metadata-form" [formGroup]="form">
 
@@ -62,5 +62,8 @@
 
     </form>
 
+    <div class="btns">
+      <button mat-raised-button color="primary" class="next-btn">Next<mat-icon>arrow_forward</mat-icon></button>
+    </div>
   </div>
 </div>
