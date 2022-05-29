@@ -2,6 +2,7 @@ import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DragAndDropComponent } from './drag-and-drop/drag-and-drop.component';
+import { ImageDropComponent } from './image-drop/image-drop.component';
 import { NftEditorComponent } from './nft-editor/nft-editor.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -14,7 +15,7 @@ import { IPFS_GATEWAY_URL_TOKEN, IPFS_API_URL_TOKEN } from 'projects/lib-web3/sr
 import { FALLBACK_CHAIN_RPC_TOKEN } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 
 @NgModule({
-  declarations: [AppComponent, DragAndDropComponent, NftEditorComponent],
+  declarations: [AppComponent, DragAndDropComponent, NftEditorComponent, ImageDropComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
