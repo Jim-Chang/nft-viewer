@@ -1,12 +1,6 @@
-<div class="banner">
-  <div>
-    <h1 class="app-title">KongLong NFT Mint DApp</h1>
-  </div>
-</div>
-
 <div class="content">
   <div class="container">
-    <image-drop (imgFileDropped)="onFileDropped($event)"></image-drop>
+    <image-drop [imageFile]="imageFile" (imgFileDropped)="onFileDropped($event)"></image-drop>
 
     <form class="metadata-form" [formGroup]="form">
 
@@ -63,7 +57,7 @@
     </form>
 
     <div class="btns">
-      <button mat-raised-button color="primary" class="next-btn">Next<mat-icon>arrow_forward</mat-icon></button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="onClickNextButton()">Next<mat-icon>arrow_forward</mat-icon></button>
     </div>
   </div>
 </div>

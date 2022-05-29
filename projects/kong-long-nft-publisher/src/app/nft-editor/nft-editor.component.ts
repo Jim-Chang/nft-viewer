@@ -1,8 +1,7 @@
 import { NftFormService } from './../services/nft-form.service';
 import { Component } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { IpfsService } from 'projects/lib-web3/src/lib/services/ipfs.service.ts.service';
-import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-provider.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nft-editor',
@@ -18,18 +17,16 @@ export class NftEditorComponent {
     return this.formService.getAttrFormArray();
   }
 
-  constructor(
-    private formService: NftFormService,
-    private ipfsService: IpfsService,
-    private web3Service: Web3ProviderService,
-  ) {
-    this.formService.buildForm();
+  get imageFile(): File {
+    return this.formService.getImageFile() as File;
+  }
+
+  constructor(private formService: NftFormService, private router: Router) {
+    this.formService.buildFormIfNotExist();
   }
 
   onFileDropped(file: File | undefined): void {
-    console.log('file', file);
     this.formService.setImageFile(file);
-    // this.ipfsService.addAndPin(file).subscribe((ret) => console.log(ret));
   }
 
   onClickAddAttrButton(): void {
@@ -42,6 +39,7 @@ export class NftEditorComponent {
 
   onClickNextButton(): void {
     if (this.formService.isValid()) {
+      this.router.navigate(['preview']);
     }
   }
 }

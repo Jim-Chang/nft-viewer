@@ -18,6 +18,12 @@ export class NftFormService {
     });
   }
 
+  buildFormIfNotExist(): void {
+    if (!this.form) {
+      this.buildForm();
+    }
+  }
+
   getForm(): FormGroup {
     return this.form;
   }
@@ -43,7 +49,11 @@ export class NftFormService {
     this.imageFile = file;
   }
 
+  getImageFile(): File | undefined {
+    return this.imageFile;
+  }
+
   isValid(): boolean {
-    return this.form.valid;
+    return this.form.valid && !!this.imageFile;
   }
 }

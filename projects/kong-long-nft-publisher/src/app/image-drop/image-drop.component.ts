@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { readFileAsDataUrl$ } from '../utility';
+import { Component, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'image-drop',
@@ -7,16 +8,19 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class ImageDropComponent {
   imageUrl: string | null;
+  @Input() imageFile: File;
   @Output() imgFileDropped = new EventEmitter<File>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.imageFile && this.imageFile) {
+      readFileAsDataUrl$(this.imageFile).subscribe((url) => (this.imageUrl = url));
+    }
+  }
 
   onFileDropped(files: FileList): void {
     if (files && files[0] && files[0].type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.imageUrl = event.target.result;
-      };
-      reader.readAsDataURL(files[0]);
       this.imgFileDropped.emit(files[0]);
+      readFileAsDataUrl$(files[0]).subscribe((url) => (this.imageUrl = url));
     }
   }
 
