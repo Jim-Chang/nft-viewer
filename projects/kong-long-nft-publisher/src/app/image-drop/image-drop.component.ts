@@ -12,8 +12,12 @@ export class ImageDropComponent {
   @Output() imgFileDropped = new EventEmitter<File>();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.imageFile && this.imageFile) {
-      readFileAsDataUrl$(this.imageFile).subscribe((url) => (this.imageUrl = url));
+    if (changes.imageFile) {
+      if (this.imageFile) {
+        readFileAsDataUrl$(this.imageFile).subscribe((url) => (this.imageUrl = url));
+      } else {
+        this.imageUrl = null;
+      }
     }
   }
 

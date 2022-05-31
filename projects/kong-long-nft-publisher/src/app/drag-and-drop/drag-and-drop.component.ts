@@ -14,7 +14,6 @@ export class DragAndDropComponent {
   onDragOver(evt: DragEvent) {
     evt.preventDefault();
     evt.stopPropagation();
-    console.log('in');
     this.fileOver = true;
   }
 
