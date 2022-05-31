@@ -1,3 +1,4 @@
+import { TTransaction } from './../../../../lib-web3/src/lib/services/web3-provider.type';
 import ABI_KONG_LONG_NFT from './KongLongNFT.json';
 import { ERC721 } from 'projects/lib-web3/src/lib/contracts/erc-721';
 import { from, Observable } from 'rxjs';
@@ -18,6 +19,12 @@ export class KongLongNFT extends ERC721 {
       );
     }
     return this._currentTokenId$;
+  }
+
+  mint(owner: string, tokenURI: string, fromAccount: string): Observable<TTransaction> {
+    return from(
+      this.web3Contract.methods.mintToken(owner, tokenURI).send({ from: fromAccount }),
+    ) as Observable<TTransaction>;
   }
 
   protected get abi(): AbiItem | AbiItem[] {

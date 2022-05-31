@@ -10,6 +10,14 @@ export type TConnectInfo = {
   chainId: string;
 };
 
+export type TTransaction = {
+  blockNumber: number;
+  gasUsed: number;
+  transactionHash: string;
+  transactionIndex: string;
+  status: boolean;
+};
+
 export interface IProviderRpcError extends Error {
   message: string;
   code: number;
