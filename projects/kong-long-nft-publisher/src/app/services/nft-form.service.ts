@@ -12,6 +12,7 @@ export class NftFormService {
 
   buildForm(): void {
     this.form = this.fb.group({
+      owner: [null, Validators.required],
       name: [null, Validators.required],
       description: [null, Validators.required],
       attributes: this.fb.array([]),
@@ -22,6 +23,11 @@ export class NftFormService {
     if (!this.form) {
       this.buildForm();
     }
+  }
+
+  resetForm(): void {
+    this.form.reset();
+    this.imageFile = undefined;
   }
 
   getForm(): FormGroup {
@@ -53,7 +59,11 @@ export class NftFormService {
     return this.imageFile;
   }
 
+  getFormValue(): any {
+    return this.form.getRawValue();
+  }
+
   isValid(): boolean {
-    return this.form.valid && !!this.imageFile;
+    return this.form && this.form.valid && !!this.imageFile;
   }
 }

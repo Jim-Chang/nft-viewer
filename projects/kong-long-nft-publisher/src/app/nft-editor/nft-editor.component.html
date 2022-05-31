@@ -5,6 +5,13 @@
     <form class="metadata-form" [formGroup]="form">
 
       <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Owner Address</mat-label>
+        <input matInput
+              placeholder="0x90fd1AB785328456Cd5d71Acb8265FC8b771791c"
+              formControlName="owner">
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput
               placeholder="KongLong #2"
