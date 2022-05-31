@@ -101,7 +101,6 @@ export class NftMintComponent {
           this.errMsg = err.message;
 
           this.mintStep = this.STEP_FINISH;
-          this.formService.resetForm();
 
           console.log('mint fail', err);
         },

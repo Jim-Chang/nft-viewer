@@ -27,6 +27,7 @@ export class NftFormService {
 
   resetForm(): void {
     this.form.reset();
+    this.getAttrFormArray().clear();
     this.imageFile = undefined;
   }
 
