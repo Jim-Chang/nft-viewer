@@ -23,8 +23,6 @@ export class IpfsService {
     @Inject(IPFS_API_URL_TOKEN) @Optional() private apiUrl: string,
     @Inject(CORS_ANYWHERE_URL_TOKEN) @Optional() private corsAnyUrl: string,
   ) {
-    console.log(gatewayUrl, apiUrl, corsAnyUrl);
-
     if (this.apiUrl) {
       this.client = createIpfsClient({ url: this.apiUrl });
     }
@@ -55,11 +53,15 @@ export class IpfsService {
     return url;
   }
 
-  add(entry: ImportCandidate, options?: AddOptions): Observable<string> {
+  add$(entry: ImportCandidate, options?: AddOptions): Observable<string> {
     return from(this.client.add(entry)).pipe(map((ret) => ret.path));
   }
 
-  addAndPin(entry: ImportCandidate): Observable<string> {
-    return this.add(entry, { pin: true });
+  addAndPin$(entry: ImportCandidate): Observable<string> {
+    return this.add$(entry, { pin: true });
+  }
+
+  addIpfs2Hash(hash: string): string {
+    return `ipfs://${hash}`;
   }
 }
