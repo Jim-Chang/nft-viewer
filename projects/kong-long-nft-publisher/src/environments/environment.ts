@@ -9,6 +9,8 @@ export const environment: TEnv = {
   chainRPC: 'https://polygon-rpc.com',
   ipfsGatewayURL: 'https://ipfs.koding.work/',
   ipfsApiUrl: `${process.env.NG_APP_IPFS_API_URL}`,
+  kongLongNFTAddress: '0xFdC358a54eFC63aa0132b42546c6E10A15aAe2D7',
+  polygonScanURL: 'https://mumbai.polygonscan.com/',
 };
 
 /*

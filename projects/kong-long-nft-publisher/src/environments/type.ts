@@ -3,6 +3,8 @@ export type TEnv = {
   chainRPC: string;
   ipfsGatewayURL: string;
   ipfsApiUrl: string;
+  kongLongNFTAddress: string;
+  polygonScanURL: string;
 };
 
 declare global {
