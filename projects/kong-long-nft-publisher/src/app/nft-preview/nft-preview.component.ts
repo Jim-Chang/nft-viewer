@@ -1,7 +1,7 @@
 import { readFileAsDataUrl$ } from '../utility';
+import { TAttribute } from './../../../../lib-web3/src/lib/contracts/type-define';
 import { NftFormService } from './../services/nft-form.service';
 import { Component } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
 type TableData = {
@@ -19,18 +19,22 @@ export class NftPreviewComponent {
   basicData: TableData[];
   attrData: TableData[];
 
-  get formValue(): any {
-    return this.formService.getForm().getRawValue();
-  }
+  constructor(private formService: NftFormService, private router: Router) {}
 
-  constructor(private formService: NftFormService, private router: Router) {
-    const imgFile = this.formService.getImageFile();
-    if (imgFile) {
-      readFileAsDataUrl$(imgFile).subscribe((url) => (this.imageUrl = url));
+  ngOnInit(): void {
+    if (!this.formService.isValid()) {
+      this.router.navigate(['/']);
     }
 
-    const formValue = this.formService.getForm().getRawValue();
+    const imgFile = this.formService.getImageFile() as File;
+    readFileAsDataUrl$(imgFile).subscribe((url) => (this.imageUrl = url));
+
+    const formValue = this.formService.getFormValue();
     this.basicData = [
+      {
+        key: 'Owner Address',
+        value: formValue.owner,
+      },
       {
         key: 'Name',
         value: formValue.name,
@@ -40,7 +44,7 @@ export class NftPreviewComponent {
         value: formValue.description,
       },
     ];
-    this.attrData = formValue.attributes.map((attr: { trait_type: string; value: string }) => ({
+    this.attrData = formValue.attributes.map((attr: TAttribute) => ({
       key: attr.trait_type,
       value: attr.value,
     }));
@@ -50,5 +54,7 @@ export class NftPreviewComponent {
     this.router.navigate(['/']);
   }
 
-  onClickNextButton(): void {}
+  onClickNextButton(): void {
+    this.router.navigate(['mint']);
+  }
 }
