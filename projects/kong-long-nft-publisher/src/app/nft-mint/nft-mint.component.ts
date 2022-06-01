@@ -14,16 +14,26 @@ import { switchMap, filter } from 'rxjs/operators';
   styleUrls: ['./nft-mint.component.sass'],
 })
 export class NftMintComponent {
+  STEP_INIT = 0;
   STEP_UPLOAD_IMAGE = 1;
   STEP_UPLOAD_METADATA = 2;
   STEP_MINT = 3;
   STEP_FINISH = 4;
 
-  imageHash: string;
-  metadataHash: string;
-  txHash: string;
-  errMsg: string;
-  mintStep = 0;
+  imageHash: string | null;
+  metadataHash: string | null;
+  txHash: string | null;
+  errMsg: string | null;
+  mintStep = this.STEP_INIT;
+  mintResult: 'success' | 'fail' | null;
+
+  get isMintProgress(): boolean {
+    return this.mintStep > this.STEP_INIT && this.mintStep < this.STEP_FINISH;
+  }
+
+  get isDisableMintBtn(): boolean {
+    return this.isMintProgress || (this.mintStep === this.STEP_FINISH && this.mintResult === 'success');
+  }
 
   constructor(
     private formService: NftFormService,
@@ -55,6 +65,8 @@ export class NftMintComponent {
   }
 
   mint(): void {
+    this.resetStatus();
+
     const address = environment.kongLongNFTAddress;
     const contract = this.web3Service.getContract(KongLongNFT, address) as KongLongNFT;
     let account: string;
@@ -90,14 +102,15 @@ export class NftMintComponent {
           this.txHash = transaction.transactionHash;
 
           this.mintStep = this.STEP_FINISH;
+          this.mintResult = 'success';
           this.formService.resetForm();
 
           console.log('mint token', transaction);
         },
         (err: Error) => {
           this.errMsg = err.message;
-
           this.mintStep = this.STEP_FINISH;
+          this.mintResult = 'fail';
 
           console.log('mint fail', err);
         },
@@ -111,5 +124,14 @@ export class NftMintComponent {
       image: this.ipfsService.addIpfs2Hash(imageHash),
       attributes: formVale.attributes,
     };
+  }
+
+  private resetStatus(): void {
+    this.mintStep = this.STEP_INIT;
+    this.imageHash = null;
+    this.metadataHash = null;
+    this.txHash = null;
+    this.errMsg = null;
+    this.mintResult = null;
   }
 }

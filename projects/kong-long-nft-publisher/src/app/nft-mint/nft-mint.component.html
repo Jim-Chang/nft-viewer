@@ -1,6 +1,6 @@
 <div class="content">
   <div class="container">
-    <button mat-raised-button class="center-btn" color="accent" [disabled]="mintStep >= STEP_UPLOAD_IMAGE" (click)="mint()">Mint</button>
+    <button mat-raised-button class="center-btn" color="accent" [disabled]="isDisableMintBtn" (click)="mint()">Mint</button>
 
 
     <div class="log">
@@ -21,11 +21,11 @@
       </ng-container>
     </div>
 
-    <mat-spinner diameter="50" *ngIf="mintStep >= STEP_UPLOAD_IMAGE && mintStep < STEP_FINISH"></mat-spinner>
-    <button mat-raised-button color="primary" class="center-btn" (click)="onClickHomeButton()" *ngIf="mintStep === STEP_FINISH">Create Another</button>
+    <mat-spinner diameter="50" *ngIf="isMintProgress"></mat-spinner>
+    <button mat-raised-button color="primary" class="center-btn" (click)="onClickHomeButton()" *ngIf="mintStep === STEP_FINISH && mintResult === 'success'">Create Another</button>
 
     <div class="btns">
-      <button mat-raised-button (click)="onClickBackButton()" [disabled]="mintStep >= STEP_UPLOAD_IMAGE"><mat-icon>arrow_back</mat-icon>Back</button>
+      <button mat-raised-button (click)="onClickBackButton()" [disabled]="isDisableMintBtn"><mat-icon>arrow_back</mat-icon>Back</button>
     </div>
 
   </div>
