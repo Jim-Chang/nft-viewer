@@ -72,7 +72,6 @@ export class NftMintComponent {
           return this.ipfsService.addAndPin$(imgFile);
         }),
         switchMap((imgHash) => {
-          console.log('image hash', imgHash);
           this.imageHash = imgHash;
 
           this.mintStep = this.STEP_UPLOAD_METADATA;
@@ -80,7 +79,6 @@ export class NftMintComponent {
           return this.ipfsService.addAndPin$(JSON.stringify(metadata));
         }),
         switchMap((metadataHash) => {
-          console.log('metadata hash', metadataHash);
           this.metadataHash = metadataHash;
 
           this.mintStep = this.STEP_MINT;
@@ -95,7 +93,6 @@ export class NftMintComponent {
           this.formService.resetForm();
 
           console.log('mint token', transaction);
-          console.log('url', this.getTxLink(this.txHash));
         },
         (err: Error) => {
           this.errMsg = err.message;
