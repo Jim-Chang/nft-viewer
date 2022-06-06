@@ -13,7 +13,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedComponentModule } from 'Lib/shared-component/shared-component.module';
 import { MaterialModule } from 'Lib/ui/material.module';
-import { IPFS_GATEWAY_URL_TOKEN, IPFS_API_URL_TOKEN } from 'projects/lib-web3/src/lib/services/ipfs.service.ts.service';
+import {
+  IPFS_GATEWAY_URL_TOKEN,
+  IPFS_API_URL_TOKEN,
+  PINATA_API_KEY_TOKEN,
+  PINATA_API_SECRET_TOKEN,
+} from 'projects/lib-web3/src/lib/services/ipfs.service.ts.service';
 import { FALLBACK_CHAIN_RPC_TOKEN } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 
 @NgModule({
@@ -39,6 +44,8 @@ import { FALLBACK_CHAIN_RPC_TOKEN } from 'projects/lib-web3/src/lib/services/web
     { provide: IPFS_GATEWAY_URL_TOKEN, useValue: environment.ipfsGatewayURL },
     { provide: IPFS_API_URL_TOKEN, useValue: environment.ipfsApiUrl },
     { provide: FALLBACK_CHAIN_RPC_TOKEN, useValue: environment.chainRPC },
+    { provide: PINATA_API_KEY_TOKEN, useValue: environment.pinataApiKey },
+    { provide: PINATA_API_SECRET_TOKEN, useValue: environment.pinataApiSecret },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,13 +1,16 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import pinataSDK, { PinataClient } from '@pinata/sdk';
 import { AddOptions } from 'ipfs-core-types/src/root';
 import { ImportCandidate } from 'ipfs-core-types/src/utils';
 import { create as createIpfsClient, IPFSHTTPClient } from 'ipfs-http-client';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of, iif } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 export const IPFS_GATEWAY_URL_TOKEN = new InjectionToken<string>('IPFS_GATEWAY_URL_TOKEN');
 export const IPFS_API_URL_TOKEN = new InjectionToken<string>('IPFS_API_URL_TOKEN');
 export const CORS_ANYWHERE_URL_TOKEN = new InjectionToken<string>('CORS_ANYWHERE_URL_TOKEN');
+export const PINATA_API_KEY_TOKEN = new InjectionToken<string>('PINATA_API_KEY_TOKEN');
+export const PINATA_API_SECRET_TOKEN = new InjectionToken<string>('PINATA_API_SECRET_TOKEN');
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +20,20 @@ export class IpfsService {
   private PINATA_GATEWAY_URL = 'https://gateway.pinata.cloud/';
 
   private client: IPFSHTTPClient;
+  private pinata: PinataClient;
 
   constructor(
     @Inject(IPFS_GATEWAY_URL_TOKEN) private gatewayUrl: string,
     @Inject(IPFS_API_URL_TOKEN) @Optional() private apiUrl: string,
     @Inject(CORS_ANYWHERE_URL_TOKEN) @Optional() private corsAnyUrl: string,
+    @Inject(PINATA_API_KEY_TOKEN) @Optional() private pinataApiKey: string,
+    @Inject(PINATA_API_SECRET_TOKEN) @Optional() private pinataApiSecret: string,
   ) {
     if (this.apiUrl) {
       this.client = createIpfsClient({ url: this.apiUrl });
+    }
+    if (this.pinataApiKey && this.pinataApiSecret) {
+      this.pinata = pinataSDK(this.pinataApiKey, this.pinataApiSecret);
     }
   }
 
@@ -72,8 +81,24 @@ export class IpfsService {
     );
   }
 
-  addAndPin$(entry: ImportCandidate, fileName?: string): Observable<string> {
-    return this.add$(entry, fileName, { pin: true });
+  addAndPin$(entry: ImportCandidate, fileName?: string, pinPinata = true): Observable<string> {
+    let hash = '';
+    return this.add$(entry, fileName, { pin: true }).pipe(
+      switchMap((_hash) => {
+        hash = _hash;
+        return iif(() => pinPinata, this.pinToPinata$(hash), of());
+      }),
+      map(() => hash),
+    );
+  }
+
+  pinToPinata$(hash: string): Observable<void> {
+    return from(this.pinata.pinByHash(hash)).pipe(
+      map((ret) => {
+        console.log('pin to pinata', ret);
+        return;
+      }),
+    );
   }
 
   addIpfs2Hash(hash: string): string {
