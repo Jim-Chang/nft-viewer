@@ -73,6 +73,7 @@ export class NftMintComponent {
 
     const formValue = this.formService.getFormValue();
     const imgFile = this.formService.getImageFile() as File;
+    const fileName = formValue.name.replaceAll(' ', '_').replaceAll('#', '');
 
     this.web3Service
       .requestAccounts$()
@@ -81,14 +82,15 @@ export class NftMintComponent {
         switchMap((accounts) => {
           account = accounts[0];
           this.mintStep = this.STEP_UPLOAD_IMAGE;
-          return this.ipfsService.addAndPin$(imgFile);
+
+          return this.ipfsService.addAndPin$(imgFile, `${fileName}.jpg`);
         }),
         switchMap((imgHash) => {
           this.imageHash = imgHash;
 
           this.mintStep = this.STEP_UPLOAD_METADATA;
           const metadata = this.buildMetadata(formValue, imgHash);
-          return this.ipfsService.addAndPin$(JSON.stringify(metadata));
+          return this.ipfsService.addAndPin$(JSON.stringify(metadata), `${fileName}.json`);
         }),
         switchMap((metadataHash) => {
           this.metadataHash = metadataHash;

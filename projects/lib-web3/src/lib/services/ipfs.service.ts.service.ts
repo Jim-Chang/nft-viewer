@@ -1,9 +1,9 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { AddResult, AddOptions } from 'ipfs-core-types/src/root';
+import { AddOptions } from 'ipfs-core-types/src/root';
 import { ImportCandidate } from 'ipfs-core-types/src/utils';
 import { create as createIpfsClient, IPFSHTTPClient } from 'ipfs-http-client';
-import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 export const IPFS_GATEWAY_URL_TOKEN = new InjectionToken<string>('IPFS_GATEWAY_URL_TOKEN');
 export const IPFS_API_URL_TOKEN = new InjectionToken<string>('IPFS_API_URL_TOKEN');
@@ -53,12 +53,27 @@ export class IpfsService {
     return url;
   }
 
-  add$(entry: ImportCandidate, options?: AddOptions): Observable<string> {
-    return from(this.client.add(entry)).pipe(map((ret) => ret.path));
+  cpToMFS$(hash: string, target: string): Observable<void> {
+    return from(this.client.files.cp(`/ipfs/${hash}`, `/${target}`));
   }
 
-  addAndPin$(entry: ImportCandidate): Observable<string> {
-    return this.add$(entry, { pin: true });
+  add$(entry: ImportCandidate, fileName?: string, options?: AddOptions): Observable<string> {
+    let hash = '';
+    return from(this.client.add(entry)).pipe(
+      switchMap((ret) => {
+        hash = ret.path;
+        if (fileName) {
+          return this.cpToMFS$(hash, fileName);
+        } else {
+          return of();
+        }
+      }),
+      map(() => hash),
+    );
+  }
+
+  addAndPin$(entry: ImportCandidate, fileName?: string): Observable<string> {
+    return this.add$(entry, fileName, { pin: true });
   }
 
   addIpfs2Hash(hash: string): string {
