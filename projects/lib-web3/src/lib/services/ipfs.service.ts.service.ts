@@ -63,10 +63,17 @@ export class IpfsService {
   }
 
   cpToMFS$(hash: string, target: string): Observable<void> {
+    if (!this.client) {
+      throw 'Please inject IPFS_API_URL_TOKEN';
+    }
     return from(this.client.files.cp(`/ipfs/${hash}`, `/${target}`));
   }
 
   add$(entry: ImportCandidate, fileName?: string, options?: AddOptions): Observable<string> {
+    if (!this.client) {
+      throw 'Please inject IPFS_API_URL_TOKEN';
+    }
+
     let hash = '';
     return from(this.client.add(entry)).pipe(
       switchMap((ret) => {
@@ -93,6 +100,9 @@ export class IpfsService {
   }
 
   pinToPinata$(hash: string): Observable<void> {
+    if (!this.pinata) {
+      throw 'Please inject PINATA_API_KEY_TOKEN and PINATA_API_SECRET_TOKEN';
+    }
     return from(this.pinata.pinByHash(hash)).pipe(
       map((ret) => {
         console.log('pin to pinata', ret);

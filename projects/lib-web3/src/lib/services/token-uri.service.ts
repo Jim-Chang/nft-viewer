@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TMetadata } from 'projects/lib-web3/src/lib/contracts/type-define';
+import { IpfsService } from 'projects/lib-web3/src/lib/services/ipfs.service.ts.service';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { httplizeIpfsUri } from 'src/lib/utility';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { httplizeIpfsUri } from 'src/lib/utility';
 export class TokenURIService {
   private metaData$: { [tokenUri: string]: Observable<TMetadata> } = {};
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private ipfsService: IpfsService) {}
 
   getMetaData$(tokenUri: string): Observable<TMetadata> {
     if (!this.metaData$[tokenUri]) {
@@ -28,8 +28,8 @@ export class TokenURIService {
     const aniURl = metaData.animation_url;
     return {
       ...metaData,
-      __httplizeImageUrl: imgUrl ? httplizeIpfsUri(imgUrl) : imgUrl,
-      __httplizeAnimationUrl: aniURl ? httplizeIpfsUri(aniURl) : aniURl,
+      __httplizeImageUrl: imgUrl ? this.ipfsService.httplizeIpfsUri(imgUrl) : imgUrl,
+      __httplizeAnimationUrl: aniURl ? this.ipfsService.httplizeIpfsUri(aniURl) : aniURl,
     };
   }
 }

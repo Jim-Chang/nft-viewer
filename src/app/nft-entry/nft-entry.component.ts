@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ERC721 } from 'projects/lib-web3/src/lib/contracts/erc-721';
 import { TMetadata, TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
 import { getContractClass } from 'projects/lib-web3/src/lib/contracts/utility';
+import { IpfsService } from 'projects/lib-web3/src/lib/services/ipfs.service.ts.service';
 import { TokenURIService } from 'projects/lib-web3/src/lib/services/token-uri.service';
 import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { map, startWith, switchMap, takeUntil, catchError } from 'rxjs/operators';
 import { ERR_CONTRACT_NOT_FOUND } from 'src/app/error-page/error-page.component';
-import { httplizeIpfsUri } from 'src/lib/utility';
 
 @Component({
   selector: 'app-nft-entry',
@@ -30,7 +30,7 @@ export class NftEntryComponent {
   private destroy$$ = new Subject<void>();
 
   get imageURL(): string {
-    return this.metaData?.image ? httplizeIpfsUri(this.metaData.image) : '';
+    return this.metaData?.image ? this.ipfsService.httplizeIpfsUri(this.metaData.image) : '';
   }
 
   constructor(
@@ -38,6 +38,7 @@ export class NftEntryComponent {
     private route: ActivatedRoute,
     private web3Service: Web3ProviderService,
     private tokenURIService: TokenURIService,
+    private ipfsService: IpfsService,
   ) {}
 
   ngOnInit(): void {

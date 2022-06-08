@@ -1,34 +1,3 @@
-import { environment } from 'src/environments/environment';
-
-export const IPFS = 'ipfs://';
-export const IPFS_GATEWAY_URL = environment.ipfsGatewayURL;
-export const PINATA_GATEWAY_URL = 'https://gateway.pinata.cloud/';
-export const CORS_ANYWHERE = environment.corsAnywhereURL;
-
-export const zipArray = (rows: any) => rows[0].map((_: any, c: any) => rows.map((row: any) => row[c]));
-
-export function httplizeIpfsUri(uri: string): string {
-  if (uri.startsWith(IPFS)) {
-    const cid = uri.replace(IPFS, '');
-    return `${IPFS_GATEWAY_URL}ipfs/${cid}`;
-  }
-  return uri;
-}
-
-export function addCorsProxy(url: string): string {
-  if (url.startsWith(IPFS_GATEWAY_URL)) {
-    return url;
-  }
-  return `${CORS_ANYWHERE}${url}`;
-}
-
-export function replacePinataGateway(url: string): string {
-  if (url.includes(PINATA_GATEWAY_URL)) {
-    return url.replace(PINATA_GATEWAY_URL, IPFS_GATEWAY_URL);
-  }
-  return url;
-}
-
 export function range(start: number, end: number): number[] {
   return [...Array(end - start + 1).keys()].map((x) => x + start);
 }
