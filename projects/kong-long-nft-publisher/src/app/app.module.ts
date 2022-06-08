@@ -11,8 +11,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedComponentModule } from 'Lib/shared-component/shared-component.module';
-import { MaterialModule } from 'Lib/ui/material.module';
+import { MaterialModule } from 'projects/lib-ui/src/lib/material.module';
+import { SharedComponentModule } from 'projects/lib-ui/src/lib/shared-component/shared-component.module';
 import {
   IPFS_GATEWAY_URL_TOKEN,
   IPFS_API_URL_TOKEN,

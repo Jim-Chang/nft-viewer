@@ -11,10 +11,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpInterceptorService } from 'Lib/services/http-intercept.service';
-import { SharedComponentModule } from 'Lib/shared-component/shared-component.module';
-import { MaterialModule } from 'Lib/ui/material.module';
+import { MaterialModule } from 'projects/lib-ui/src/lib/material.module';
+import { SharedComponentModule } from 'projects/lib-ui/src/lib/shared-component/shared-component.module';
 import { FALLBACK_CHAIN_RPC_TOKEN } from 'projects/lib-web3/src/lib/services/web3-provider.service';
+import { HttpInterceptorService } from 'src/lib/services/http-intercept.service';
 
 @NgModule({
   declarations: [AppComponent, NftSeriesComponent, NftEntryComponent, NftSearchComponent, ErrorPageComponent],

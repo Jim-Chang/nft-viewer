@@ -37,7 +37,7 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/lib/ui/style"
+                "projects/lib-ui/src/lib/style"
               ]
             }
           },
@@ -150,7 +150,7 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/lib/ui/style"
+                "projects/lib-ui/src/lib/style"
               ]
             }
           },
@@ -269,7 +269,7 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/lib/ui/style"
+                "projects/lib-ui/src/lib/style"
               ]
             }
           },
@@ -371,6 +371,37 @@
             "main": "projects/lib-web3/src/test.ts",
             "tsConfig": "projects/lib-web3/tsconfig.spec.json",
             "karmaConfig": "projects/lib-web3/karma.conf.js"
+          }
+        }
+      }
+    },
+    "lib-ui": {
+      "projectType": "library",
+      "root": "projects/lib-ui",
+      "sourceRoot": "projects/lib-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/lib-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lib-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/lib-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lib-ui/src/test.ts",
+            "tsConfig": "projects/lib-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/lib-ui/karma.conf.js"
           }
         }
       }

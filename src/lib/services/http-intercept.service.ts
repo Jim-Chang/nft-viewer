@@ -1,6 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addCorsProxy, httplizeIpfsUri, replacePinataGateway } from 'Lib/utility';
+import { addCorsProxy, httplizeIpfsUri, replacePinataGateway } from 'src/lib/utility';
 
 @Injectable({
   providedIn: 'root',

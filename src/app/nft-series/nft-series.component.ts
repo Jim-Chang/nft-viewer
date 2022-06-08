@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterService } from 'App/services/router.service';
-import { range } from 'Lib/utility';
 import { ERC721 } from 'projects/lib-web3/src/lib/contracts/erc-721';
 import { TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
 import { getContractClass } from 'projects/lib-web3/src/lib/contracts/utility';
@@ -10,6 +8,8 @@ import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-pro
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
 import { ERR_CONTRACT_NOT_FOUND } from 'src/app/error-page/error-page.component';
+import { RouterService } from 'src/app/services/router.service';
+import { range } from 'src/lib/utility';
 
 @Component({
   selector: 'nft-series',

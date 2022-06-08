@@ -3,12 +3,12 @@ import { KongLongNFT } from './../contract/kong-long-nft';
 import { RouterService } from './../services/router.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { httplizeIpfsUri } from 'Lib/utility';
 import { TMetadata, TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
 import { TokenURIService } from 'projects/lib-web3/src/lib/services/token-uri.service';
 import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 import { forkJoin, Subject, of } from 'rxjs';
 import { switchMap, takeUntil, filter } from 'rxjs/operators';
+import { httplizeIpfsUri } from 'src/lib/utility';
 
 @Component({
   selector: 'app-nft-entry',

@@ -1,10 +1,10 @@
 import { TTokenInfo } from './type-define';
-import { zipArray } from 'Lib/utility';
 import ABI_ERC721 from 'projects/lib-web3/src/lib/abi/ERC721.json';
 import { BaseContract } from 'projects/lib-web3/src/lib/contracts/base-contract';
 import { from, forkJoin, Observable, zip, of } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { zipArray } from 'src/lib/utility';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
