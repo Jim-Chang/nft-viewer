@@ -37,7 +37,7 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/lib/ui/style"
+                "projects/lib-ui/src/lib/style"
               ]
             }
           },
@@ -150,7 +150,7 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/lib/ui/style"
+                "projects/lib-ui/src/lib/style"
               ]
             }
           },
@@ -231,6 +231,177 @@
               "projects/kong-long-nft/src/styles.sass"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "kong-long-nft-publisher": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/kong-long-nft-publisher",
+      "sourceRoot": "projects/kong-long-nft-publisher/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@ngx-env/builder:browser",
+          "options": {
+            "outputPath": "dist/kong-long-nft-publisher",
+            "index": "projects/kong-long-nft-publisher/src/index.html",
+            "main": "projects/kong-long-nft-publisher/src/main.ts",
+            "polyfills": "projects/kong-long-nft-publisher/src/polyfills.ts",
+            "tsConfig": "projects/kong-long-nft-publisher/tsconfig.app.json",
+            "inlineStyleLanguage": "sass",
+            "assets": [
+              "projects/kong-long-nft-publisher/src/favicon.ico",
+              "projects/kong-long-nft-publisher/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/kong-long-nft-publisher/src/styles.sass"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/lib-ui/src/lib/style"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/kong-long-nft-publisher/src/environments/environment.ts",
+                  "with": "projects/kong-long-nft-publisher/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@ngx-env/builder:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "kong-long-nft-publisher:build:production"
+            },
+            "development": {
+              "browserTarget": "kong-long-nft-publisher:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@ngx-env/builder:extract-i18n",
+          "options": {
+            "browserTarget": "kong-long-nft-publisher:build"
+          }
+        },
+        "test": {
+          "builder": "@ngx-env/builder:karma",
+          "options": {
+            "main": "projects/kong-long-nft-publisher/src/test.ts",
+            "polyfills": "projects/kong-long-nft-publisher/src/polyfills.ts",
+            "tsConfig": "projects/kong-long-nft-publisher/tsconfig.spec.json",
+            "karmaConfig": "projects/kong-long-nft-publisher/karma.conf.js",
+            "inlineStyleLanguage": "sass",
+            "assets": [
+              "projects/kong-long-nft-publisher/src/favicon.ico",
+              "projects/kong-long-nft-publisher/src/assets"
+            ],
+            "styles": [
+              "projects/kong-long-nft-publisher/src/styles.sass"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "lib-web3": {
+      "projectType": "library",
+      "root": "projects/lib-web3",
+      "sourceRoot": "projects/lib-web3/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@ngx-env/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/lib-web3/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lib-web3/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/lib-web3/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@ngx-env/build-angular:karma",
+          "options": {
+            "main": "projects/lib-web3/src/test.ts",
+            "tsConfig": "projects/lib-web3/tsconfig.spec.json",
+            "karmaConfig": "projects/lib-web3/karma.conf.js"
+          }
+        }
+      }
+    },
+    "lib-ui": {
+      "projectType": "library",
+      "root": "projects/lib-ui",
+      "sourceRoot": "projects/lib-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/lib-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lib-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/lib-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lib-ui/src/test.ts",
+            "tsConfig": "projects/lib-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/lib-ui/karma.conf.js"
           }
         }
       }

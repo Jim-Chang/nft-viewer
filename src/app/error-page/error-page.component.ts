@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Web3ProviderService } from 'Lib/services/web3-provider.service';
+import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 
 export const ERR_CONTRACT_NOT_FOUND = '1';
 

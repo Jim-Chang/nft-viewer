@@ -3,12 +3,12 @@ import { RouterService } from '../services/router.service';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import { TTokenInfo } from 'Lib/contracts/type-define';
-import { Web3ProviderService } from 'Lib/services/web3-provider.service';
-import { range } from 'Lib/utility';
 import { KongLongNFT } from 'projects/kong-long-nft/src/app/contract/kong-long-nft';
+import { TTokenInfo } from 'projects/lib-web3/src/lib/contracts/type-define';
+import { Web3ProviderService } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, map, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { range } from 'src/lib/utility';
 
 @Component({
   selector: 'nft-series',

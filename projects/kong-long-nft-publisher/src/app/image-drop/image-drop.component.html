@@ -1,0 +1,9 @@
+<drag-and-drop *ngIf="!imageUrl" (fileDropped)="onFileDropped($event)"></drag-and-drop>
+<div class="wrap">
+  <div class="img-container" *ngIf="imageUrl">
+    <img [src]="imageUrl" />
+    <button mat-mini-fab class="delete-btn" color="accent" (click)="onClickDeleteBtn()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div>
+</div>

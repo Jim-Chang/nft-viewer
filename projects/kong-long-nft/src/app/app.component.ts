@@ -1,6 +1,4 @@
-import { RouterService } from './services/router.service';
 import { Component } from '@angular/core';
-import { Web3ProviderService } from 'Lib/services/web3-provider.service';
 
 @Component({
   selector: 'app-root',

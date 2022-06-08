@@ -1,0 +1,52 @@
+<div class="content">
+  <div class="container">
+    <img [src]="imageUrl" />
+
+    <div class="table-wrap">
+
+      <h3>Basic</h3>
+
+      <table mat-table *ngIf="basicData" [dataSource]="basicData" class="mat-elevation-z8 mat-table">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Key </th>
+          <td mat-cell *matCellDef="let data"> {{data.key}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Value </th>
+          <td mat-cell *matCellDef="let data"> {{data.value}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'value']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'value'];"></tr>
+
+      </table>
+
+      <h3>Properties</h3>
+
+      <table mat-table *ngIf="attrData" [dataSource]="attrData" class="mat-elevation-z8 mat-table">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Key </th>
+          <td mat-cell *matCellDef="let data"> {{data.key}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Value </th>
+          <td mat-cell *matCellDef="let data"> {{data.value}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'value']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'value'];"></tr>
+
+      </table>
+
+    </div>
+
+    <div class="btns">
+      <button mat-raised-button (click)="onClickBackButton()"><mat-icon>arrow_back</mat-icon>Back</button>
+      <button mat-raised-button color="primary" class="next-btn" (click)="onClickNextButton()">Next<mat-icon>arrow_forward</mat-icon></button>
+    </div>
+  </div>
+</div>

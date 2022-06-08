@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterService } from 'App/services/router.service';
-import { Web3ProviderService, chainIdToName } from 'Lib/services/web3-provider.service';
-import { shuffle } from 'Lib/utility';
-import DEMO_NFT_LIST from 'Static/demo-nft.json';
+import { Web3ProviderService, chainIdToName } from 'projects/lib-web3/src/lib/services/web3-provider.service';
 import { filter } from 'rxjs/operators';
+import { RouterService } from 'src/app/services/router.service';
+import { shuffle } from 'src/lib/utility';
+import DEMO_NFT_LIST from 'src/static/demo-nft.json';
 
 type TNftSeriesDemoData = {
   name: string;

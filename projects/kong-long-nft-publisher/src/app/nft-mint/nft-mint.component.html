@@ -1,0 +1,32 @@
+<div class="content">
+  <div class="container">
+    <button mat-raised-button class="center-btn" color="accent" [disabled]="isDisableMintBtn" (click)="mint()">Mint</button>
+
+
+    <div class="log">
+      <ng-container *ngIf="mintStep >= STEP_UPLOAD_IMAGE">
+        <h3>Upload image to IPFS...</h3>
+        <p *ngIf="imageHash">Finish.<br>Image CID: {{ imageHash }}<br><a [href]="getIpfsLink(imageHash)" target="_blank">IPFS Link</a></p>
+      </ng-container>
+
+      <ng-container *ngIf="mintStep >= STEP_UPLOAD_METADATA">
+        <h3>Upload metadata to IPFS...</h3>
+        <p *ngIf="metadataHash">Finish.<br>Metadata CID: {{ metadataHash }}<br><a [href]="getIpfsLink(metadataHash)" target="_blank">IPFS Link</a></p>
+      </ng-container>
+
+      <ng-container *ngIf="mintStep >= STEP_MINT">
+        <h3>Send transaction of minting...</h3>
+        <p *ngIf="txHash">Finish.<br> Tx Hash: {{ txHash }}<br><a [href]="getTxLink(txHash)" target="_blank">PolygonScan Link</a></p>
+        <p *ngIf="errMsg" class="pink">Error:<br>{{ errMsg }}</p>
+      </ng-container>
+    </div>
+
+    <mat-spinner diameter="50" *ngIf="isMintProgress"></mat-spinner>
+    <button mat-raised-button color="primary" class="center-btn" (click)="onClickHomeButton()" *ngIf="mintStep === STEP_FINISH && mintResult === 'success'">Create Another</button>
+
+    <div class="btns">
+      <button mat-raised-button (click)="onClickBackButton()" [disabled]="isDisableMintBtn"><mat-icon>arrow_back</mat-icon>Back</button>
+    </div>
+
+  </div>
+</div>

@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "browser": { "fs": false, "tty": false, "zlib": false, "path": false},
   "importSort": {
     ".ts": {
       "style": "module",
@@ -27,9 +28,11 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@metamask/providers": "^8.1.1",
+    "@pinata/sdk": "^1.1.25",
     "assert": "^2.0.0",
     "crypto-browserify": "^3.12.0",
     "https-browserify": "^1.0.0",
+    "ipfs-http-client": "^56.0.3",
     "ngx-skeleton-loader": "^5.0.0",
     "os-browserify": "^0.3.0",
     "rxjs": "~6.6.0",
@@ -46,7 +49,7 @@
     "@ngx-env/builder": "^2.0.2",
     "@trivago/prettier-plugin-sort-imports": "^3.2.0",
     "@types/jasmine": "~3.8.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.52",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
     "cors-anywhere": "^0.4.4",
@@ -61,6 +64,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-packagr": "^12.1.1",
     "prettier": "^2.6.2",
     "typescript": "~4.3.5"
   }

@@ -27,10 +27,14 @@
       "http": ["./node_modules/stream-http"],
       "https": ["./node_modules/https-browserify"],
       "os": ["./node_modules/os-browserify"],
-      "Lib/*": ["src/lib/*"],
-      "ABI/*": ["src/abi/*"],
-      "App/*": ["src/app/*"],
-      "Static/*": ["src/static/*"],
+      "lib-ui": [
+        "dist/lib-ui/lib-ui",
+        "dist/lib-ui"
+      ],
+      "lib-web3": [
+        "dist/lib-web3/lib-web3",
+        "dist/lib-web3"
+      ],
     },
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
