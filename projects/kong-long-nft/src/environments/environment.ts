@@ -7,7 +7,7 @@ export const environment: TEnv = {
   production: false,
   NFTchainId: 137,
   corsAnywhereURL: 'http://127.0.0.1:8080/',
-  ipfsGatewayURL: 'https://ipfs.koding.work/',
+  ipfsGatewayURL: `${process.env.NG_APP_IPFS_GATEWAY_URL}`,
   kongLongNFTAddress: '0x8001ed4ea0F7866ba4585706726aaec0159bd50b',
   chainRPC: 'https://polygon-rpc.com',
 };

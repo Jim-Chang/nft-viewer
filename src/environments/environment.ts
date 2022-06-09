@@ -7,7 +7,7 @@ import { TEnv } from './type';
 export const environment: TEnv = {
   production: false,
   corsAnywhereURL: 'http://127.0.0.1:8080/',
-  ipfsGatewayURL: 'https://ipfs.fleek.co/',
+  ipfsGatewayURL: `${process.env.NG_APP_IPFS_GATEWAY_URL}`,
   chainRPC: `https://mainnet.infura.io/v3/${process.env.NG_APP_INFURA_PORJ_ID}`,
 };
 

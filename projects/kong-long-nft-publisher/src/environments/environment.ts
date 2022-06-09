@@ -7,7 +7,7 @@ import { TEnv } from './type';
 export const environment: TEnv = {
   production: false,
   chainRPC: 'https://polygon-rpc.com',
-  ipfsGatewayURL: 'https://ipfs.koding.work/',
+  ipfsGatewayURL: `${process.env.NG_APP_IPFS_GATEWAY_URL}`,
   ipfsApiUrl: `${process.env.NG_APP_IPFS_API_URL}`,
   kongLongNFTAddress: '0xFdC358a54eFC63aa0132b42546c6E10A15aAe2D7',
   polygonScanURL: 'https://mumbai.polygonscan.com/',
